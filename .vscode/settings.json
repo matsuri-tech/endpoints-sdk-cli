@@ -1,0 +1,6 @@
+{
+    "editor.codeActionsOnSaveTimeout": 2000,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+}

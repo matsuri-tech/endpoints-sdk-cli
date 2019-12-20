@@ -1,4 +1,4 @@
-@oclif/example-multi-ts
+endpoints-sdk-cli
 =======================
 
 example multi-command CLI built with typescript
@@ -18,66 +18,43 @@ example multi-command CLI built with typescript
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @oclif/example-multi-ts
-$ example-multi-ts COMMAND
+$ npm install -g endpoints-sdk-cli
+$ mes COMMAND
 running command...
-$ example-multi-ts (-v|--version|version)
-@oclif/example-multi-ts/1.10.7 linux-x64 node-v13.3.0
-$ example-multi-ts --help [COMMAND]
+$ mes (-v|--version|version)
+endpoints-sdk-cli/1.10.7 darwin-x64 node-v12.6.0
+$ mes --help [COMMAND]
 USAGE
-  $ example-multi-ts COMMAND
+  $ mes COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`example-multi-ts goodbye [FILE]`](#example-multi-ts-goodbye-file)
-* [`example-multi-ts hello [FILE]`](#example-multi-ts-hello-file)
-* [`example-multi-ts help [COMMAND]`](#example-multi-ts-help-command)
+* [`mes add [REPOSITORY]`](#mes-add-repository)
+* [`mes help [COMMAND]`](#mes-help-command)
 
-## `example-multi-ts goodbye [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ example-multi-ts goodbye [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src/commands/goodbye.ts](https://github.com/oclif/example-multi-ts/blob/v1.10.7/src/commands/goodbye.ts)_
-
-## `example-multi-ts hello [FILE]`
+## `mes add [REPOSITORY]`
 
 describe the command here
 
 ```
 USAGE
-  $ example-multi-ts hello [FILE]
+  $ mes add [REPOSITORY]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ example-multi-ts hello
-  hello world from ./src/hello.ts!
+  -v, --version=version  latest or commit hash
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/oclif/example-multi-ts/blob/v1.10.7/src/commands/hello.ts)_
+_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v1.10.7/src/commands/add.ts)_
 
-## `example-multi-ts help [COMMAND]`
+## `mes help [COMMAND]`
 
-display help for example-multi-ts
+display help for mes
 
 ```
 USAGE
-  $ example-multi-ts help [COMMAND]
+  $ mes help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
