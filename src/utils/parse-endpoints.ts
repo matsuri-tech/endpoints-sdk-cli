@@ -11,20 +11,6 @@ interface Service {
         };
         api: {
             [endpointName: string]: {
-                /**
-                 * /hello
-                 * /hello/
-                 * /hello/:hoge
-                 * /hello/:hoge/
-                 * /hello/:hoge/foo/:bar
-                 *
-                 * /hello/:name/?name&page&active
-                 *
-                 * @param {string} name
-                 * @param {string?} name ex.) john
-                 * @param {number?} page ex.) 4
-                 * @param {string?} active ex.) true
-                 */
                 path: string;
                 desc?: string;
             };
@@ -41,7 +27,7 @@ export const parseEndpoints = (service: Service) => {
     /**
      * A function that returns the URL part common to the endpoints.
      */
-    export const root = ()=>{let r = "";${Object.entries(env).map(([envName, url]) => `if(process.env.NODE_ENV==='${envName === 'dev' ? 'development' : envName === 'prod' ? 'production' : envName}'){r = '${url}'}`).join('')}return r}`
+    export const root = ()=>{let __root = "";${Object.entries(env).map(([envName, url]) => `if(process.env.NODE_ENV==='${envName === 'dev' ? 'development' : envName === 'prod' ? 'production' : envName}'){__root = '${url}'}`).join('')}return __root}`
     let endpoints: {
       [endpoint: string]: string;
     } = {root}
@@ -50,13 +36,16 @@ export const parseEndpoints = (service: Service) => {
     Object.entries(api).map(([_endpointName, {path: _path, desc}]) => {
       const endpointName = camelCase(_endpointName)
       if (endpointName === 'root') return null
-      const {path, queryParams, paramNames, queryParamNames, pathParamNames} = parseUrl(_path)
+      const {path, queryParams, paramNames, queryParamNames, pathParamNames, params} = parseUrl(_path)
       const QUERY_PARAMS_COMMENTS = queryParams.map(({name, example}) => {
         return `* @param {${isNumberLiteral(example) ? 'number' : 'string'}} ${name} ${example}`
       }).join('\n')
       const QUERY_PARAMS_OBJECT = `{${queryParamNames.join(',')}}`
       const ARGUMENTS = paramNames.length === 0 ? '' : `{${paramNames.join(',')}}`
-      const ARGUMENTS_TYPE = paramNames.length === 0 ? '' : `{${paramNames.map(paramName => pathParamNames.includes(paramName) ? `${paramName}:string;` : `${paramName}?:string;`).join('')}}`
+      const ARGUMENTS_TYPE = params.length === 0 ? '' : `{${params.map(({name, example}) => {
+        const type = example !== undefined && isNumberLiteral(example) ? 'number' : 'string'
+        return pathParamNames.includes(name) ? `${name}:${type};` : `${name}?:${type};`
+      }).join('')}}`
       const FIXED_PATH = path
       .split('/')
       .map(pathFrag => (pathFrag.startsWith(':') ? `\${${pathFrag.slice(1)}}` : pathFrag))
@@ -69,7 +58,7 @@ export const parseEndpoints = (service: Service) => {
        */
       export const ${endpointName}=(${ARGUMENTS && `${ARGUMENTS}:${ARGUMENTS_TYPE}`})=>{
         const __root = root();
-        const __queries = Object.entries(${QUERY_PARAMS_OBJECT}).filter(([_, value])=> !!value).map(([key, value])=> \`\${key}=\${value}\`).join("&");
+        const __queries = Object.entries(${QUERY_PARAMS_OBJECT}).filter(([_, value])=> value !== undefined).map(([key, value])=> \`\${key}=\${value}\`).join("&");
         const __path = \`\${__root}/\${\`${FIXED_PATH}\`}\`;
         return __queries ? \`\${__path}?\${__queries}\` : __path;
       }

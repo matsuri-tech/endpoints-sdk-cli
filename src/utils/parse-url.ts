@@ -19,7 +19,10 @@ export const parseUrl = (url: string) => {
     } => {
     return Boolean(query)
   })
-  const params = [...queryParams, ...pathParams]
+  const params: {
+    name: string;
+    example?: string;
+  }[] = [...queryParams, ...pathParams]
   return {
     path,
     queryParams,
