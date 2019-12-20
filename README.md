@@ -22,7 +22,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/1.10.7 darwin-x64 node-v12.6.0
+endpoints-sdk-cli/0.0.2 darwin-x64 node-v12.6.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND
@@ -46,7 +46,7 @@ OPTIONS
   -v, --version=version  latest or commit hash
 ```
 
-_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v1.10.7/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.2/src/commands/add.ts)_
 
 ## `mes help [COMMAND]`
 

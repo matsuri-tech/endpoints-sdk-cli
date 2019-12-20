@@ -1,7 +1,7 @@
 {
   "name": "endpoints-sdk-cli",
   "description": "endpoints sdk cli",
-  "version": "1.10.7",
+  "version": "0.0.2",
   "author": "hrdtbs",
   "bin": {
     "mes": "./bin/run"
@@ -30,6 +30,7 @@
     "mocha": "^5",
     "nyc": "^14",
     "prettier": "^1.19.1",
+    "standard-version": "^7.0.1",
     "ts-node": "^8.5.4",
     "typescript": "^3.3"
   },
@@ -62,7 +63,7 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "release": "standard-version && oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"
 }

@@ -1,3 +1,40 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.0.2](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v1.10.7...v0.0.2) (2019-12-20)
+
+
+### Features
+
+* **command:** make add command ([4ebf8d6](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/4ebf8d6aa9a16fefd18ed83b37c3512e64f0096b))
+* oclif v1.13.0 ([b56cac7](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b56cac73596f5d795f7e1df540641a40ade2fadc)), closes [#214](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/214)
+* oclif v1.15.0 ([8edfe09](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/8edfe090aef770af8f4123cb23e3f1ad63962686)), closes [#298](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/298) [#305](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/305)
+
+
+### Bug Fixes
+
+* **commands/add:** fix type suggestion ([3fe66cc](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/3fe66cca43fe9f58ffcd0575d825b03426b758e6))
+* oclif v1.12.1 ([b9dd1d1](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b9dd1d12f056b797f11acd5478d1625fcb23d87a))
+* oclif v1.12.10 ([9e28609](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/9e28609729d7c28fc3c856bffeeb6738541aee2d)), closes [#206](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/206)
+* oclif v1.12.2 ([6fe8d7b](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/6fe8d7bd77dd4d97379b589b1f4a970731b86b41))
+* oclif v1.12.3 ([5b1cffd](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/5b1cffdf3ca8a38155dbc33a8f1e3bc64dd4fb48))
+* oclif v1.12.4 ([10ed719](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/10ed71912df2a1c800db8cd5267c3de5b6ed0b86))
+* oclif v1.12.5 ([bf2d3e0](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/bf2d3e04cf1dec2849ce76195aa2e052daf75896))
+* oclif v1.12.6 ([77549fd](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/77549fd02c7b7ff40b35b952b7c3975c6713770a))
+* oclif v1.12.7 ([2b063ba](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/2b063bac0be1f058262c326b64d329204610250b))
+* oclif v1.12.8 ([78ffc9a](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/78ffc9a07e78a59ca3d8c63009a1b6034d57adc5)), closes [#197](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/197)
+* oclif v1.12.9 ([1d4e277](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/1d4e277dcbe456f89fc51559180a3c11dfa0d419))
+* oclif v1.13.1 ([41220af](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/41220af4929df7078e46f4e323b1bcaf5dd9827d))
+* oclif v1.13.2 ([c518999](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/c51899933ab34ffb4744d030b8a4c8ba6bd24c46))
+* oclif v1.13.3 ([fd67ca9](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/fd67ca996583f85d657bfbce76fa2b9e3686fdcd)), closes [#247](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/247)
+* oclif v1.13.4 ([573d47b](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/573d47bbf2988d10a461c2e716b1193e52480c77)), closes [#248](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/248)
+* oclif v1.13.5 ([42de7af](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/42de7afde1ef10a41d3db0f6025fe6ffb65bb49d)), closes [#259](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/259)
+* oclif v1.13.6 ([ec09bed](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/ec09bedd16ec56f45a1db615d9963663fe8e0f16))
+* oclif v1.14.1 ([2075f2e](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/2075f2ec05fce72197149d497f37ceeaa306e1c4))
+* oclif v1.14.2 ([b8eb44e](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b8eb44ee8404700e817731e19f6d037776e8a9d9)), closes [#295](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/295)
+* oclif v1.15.2 ([836a83a](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/836a83a7afb4880e67c83dd26d85033f374a4436)), closes [#296](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/296)
+
 ## [1.10.6](https://github.com/oclif/example-multi-ts/compare/v1.10.5...v1.10.6) (2018-09-14)
 
 
