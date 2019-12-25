@@ -22,7 +22,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/0.0.6 darwin-x64 node-v12.6.0
+endpoints-sdk-cli/0.0.7 darwin-x64 node-v12.6.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND
@@ -78,7 +78,7 @@ EXAMPLES
   $ mes add https://github.com/[username/repository].git
 ```
 
-_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.6/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.7/src/commands/add.ts)_
 
 ## `mes help [COMMAND]`
 
@@ -106,7 +106,7 @@ USAGE
   $ mes install
 ```
 
-_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.6/src/commands/install.ts)_
+_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.7/src/commands/install.ts)_
 
 ## `mes update [SERVICE]`
 
@@ -117,5 +117,5 @@ USAGE
   $ mes update [SERVICE]
 ```
 
-_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.6/src/commands/update.ts)_
+_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.7/src/commands/update.ts)_
 <!-- commandsstop -->
