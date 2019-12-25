@@ -8,7 +8,7 @@
 node_modules
 
 
-endpoints.json
+endpoints.config.json
 oclif.manifest.json
 src/endpoints/
 examples

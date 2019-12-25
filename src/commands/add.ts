@@ -21,7 +21,7 @@ const inferRepository = (str: string) => {
     return str
   }
   if (str.startsWith('./')) {
-    return path.resolve(__dirname, str)
+    return path.resolve(str)
   }
   if (str.startsWith('/')) {
     return str
@@ -37,6 +37,17 @@ export default class Add extends Command {
   static flags = {
     version: flags.string({char: 'v', description: 'latest or commit hash'}),
   }
+
+  static examples = [
+    '$ mes add [username/repository]',
+    '$ mes add [username/repository] --version [commmit hash]',
+    '$ mes add [username/repository] -v [commmit hash]',
+    '$ mes add [username/repository] -v latest',
+    '$ mes add /Users/.../local-repository/',
+    '$ mes add ./local-repository',
+    '$ mes add git@github.com:[username/repository].git',
+    '$ mes add https://github.com/[username/repository].git',
+  ]
 
   async run() {
     const {args: {repository: _repository}, flags}: {

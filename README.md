@@ -46,6 +46,16 @@ USAGE
 
 OPTIONS
   -v, --version=version  latest or commit hash
+
+EXAMPLES
+  $ mes add [username/repository]
+  $ mes add [username/repository] --version [commmit hash]
+  $ mes add [username/repository] -v [commmit hash]
+  $ mes add [username/repository] -v latest
+  $ mes add /Users/.../local-repository/
+  $ mes add ./local-repository
+  $ mes add git@github.com:[username/repository].git
+  $ mes add https://github.com/[username/repository].git
 ```
 
 _See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.2/src/commands/add.ts)_
