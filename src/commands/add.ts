@@ -1,12 +1,11 @@
 import {Command, flags} from '@oclif/command'
-import {writeFileSync, existsSync, mkdirSync} from 'fs'
+import {writeFileSync, existsSync, readFileSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
 import {camelCase} from '../utils/camelCase'
 import {parseEndpoints} from '../utils/parseEndpoints'
 import * as prettier from 'prettier'
 import * as path from 'path'
 import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
-import {getConfig} from '../utils/getConfig'
 
 const extractServiceNameFromPath = (path: string) => {
   const splits = path.split('/')
@@ -88,7 +87,8 @@ add service to dependencies & make endpoints files.
     try {
       const {hash, data} = getEndpointsSourceFromRepository(repository, flags.version)
 
-      const config = getConfig()
+      const path = 'endpoints.config.json'
+      const config: Config = existsSync(path) ? JSON.parse(readFileSync(path).toString()) : {dependencies: {}}
 
       if (config.dependencies?.[repositoryName] &&
         flags.version === undefined && (
