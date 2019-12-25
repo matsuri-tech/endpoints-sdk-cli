@@ -1,11 +1,12 @@
 import {Command, flags} from '@oclif/command'
-import {writeFileSync, readFileSync, existsSync, mkdirSync} from 'fs'
+import {writeFileSync, existsSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
 import {camelCase} from '../utils/camelCase'
 import {parseEndpoints} from '../utils/parseEndpoints'
 import * as prettier from 'prettier'
 import * as path from 'path'
 import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
+import {getConfig} from '../utils/getConfig'
 
 const extractServiceNameFromPath = (path: string) => {
   const splits = path.split('/')
@@ -87,13 +88,15 @@ add service to dependencies & make endpoints files.
     try {
       const {hash, data} = getEndpointsSourceFromRepository(repository, flags.version)
 
-      const existsFile = existsSync('endpoints.json')
-      const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.json').toString()) : {dependencies: {}}
+      const config = getConfig()
+      if (!config.dependencies) {
+        throw new Error('Dependencies property of the endpoints.json does not exist. Use the add command to add dependencies before installing')
+      }
 
-      if (endpoints.dependencies?.[repositoryName] &&
+      if (config.dependencies?.[repositoryName] &&
         flags.version === undefined && (
-          endpoints.dependencies[repositoryName].version === hash  ||
-          endpoints.dependencies[repositoryName].version === 'latest'
+          config.dependencies[repositoryName].version === hash  ||
+          config.dependencies[repositoryName].version === 'latest'
         )
       ) {
         this.log(`${repositoryName} is latest version.`)
@@ -127,7 +130,7 @@ add service to dependencies & make endpoints files.
          */
         writeFileSync('endpoints.config.json', JSON.stringify({
           dependencies: {
-            ...endpoints.dependencies,
+            ...config.dependencies,
             [repository_name]: {
               version: flags.version || hash,
               repository,
