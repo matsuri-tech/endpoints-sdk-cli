@@ -37,7 +37,7 @@ export default class Update extends Command {
       const existsFile = existsSync('endpoints.json')
       const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.json').toString()) : {dependencies: {}}
 
-      const outputDir = './src/endpoints/'
+      const outputDir = './src/endpoints'
 
       if (!existsSync(outputDir)) {
         mkdirSync(outputDir)

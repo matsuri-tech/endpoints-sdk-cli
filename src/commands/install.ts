@@ -31,7 +31,7 @@ export default class Install extends Command {
           'basename': string;
         }[] = []
         cli.action.start(`generating ${repository_name} endpoints files.`)
-        const outputDir = './src/endpoints/'
+        const outputDir = './src/endpoints'
         const repositoryName = camelCase(repository_name)
         // eslint-disable-next-line array-callback-return
         parseEndpoints(data).map(({version, endpoints}) => {
