@@ -24,18 +24,18 @@ export default class Update extends Command {
     try {
       const config = getConfig()
       if (!config.dependencies) {
-        throw new Error('Dependencies property of the endpoints.json does not exist. Use the add command to add dependencies before installing')
+        throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
       if (!(service in config.dependencies)) {
-        throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.json. Or use the add command to add dependencies before installing')
+        throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.config.json. Or use the add command to add dependencies before installing')
       }
       const {repository, version} = config.dependencies[service]
       const repository_name = service
       const repositoryName = camelCase(service)
       const {hash, data} = getEndpointsSourceFromRepository(repository)
 
-      const existsFile = existsSync('endpoints.json')
-      const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.json').toString()) : {dependencies: {}}
+      const existsFile = existsSync('endpoints.config.json')
+      const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.config.json').toString()) : {dependencies: {}}
 
       const outputDir = './src/endpoints'
 

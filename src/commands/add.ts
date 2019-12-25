@@ -89,9 +89,6 @@ add service to dependencies & make endpoints files.
       const {hash, data} = getEndpointsSourceFromRepository(repository, flags.version)
 
       const config = getConfig()
-      if (!config.dependencies) {
-        throw new Error('Dependencies property of the endpoints.json does not exist. Use the add command to add dependencies before installing')
-      }
 
       if (config.dependencies?.[repositoryName] &&
         flags.version === undefined && (

@@ -9,14 +9,14 @@ import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFro
 import {getConfig} from '../utils/getConfig'
 
 export default class Install extends Command {
-  static description = 'generate endpoints files based on endpoints.json'
+  static description = 'generate endpoints files based on endpoints.config.json'
 
   async run() {
     const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
     try {
       const config = getConfig()
       if (!config.dependencies) {
-        throw new Error('Dependencies property of the endpoints.json does not exist. Use the add command to add dependencies before installing')
+        throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
 
       // eslint-disable-next-line array-callback-return
