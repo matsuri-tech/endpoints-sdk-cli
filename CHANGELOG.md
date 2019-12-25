@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.8...v0.0.10) (2019-12-25)
+
+
+### Bug Fixes
+
+* fix `git checkout origin/master -- .endpoints.json` ([1c1c22d](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/1c1c22d4f56149d56367b7fa3305536761186e68))
+
 ### [0.0.9](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.8...v0.0.9) (2019-12-25)
 
 ### [0.0.8](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.6...v0.0.8) (2019-12-25)
