@@ -35,7 +35,6 @@ add service to dependencies & make endpoints files.
 
 1. make endpoints.config.json for version control.
 
-\`\`\`json
 {
   "dependencies": {
     "service-name": {
@@ -44,7 +43,6 @@ add service to dependencies & make endpoints files.
     }
   }
 }
-\`\`\`
 
 > service name is inferred from Repository name.
 
