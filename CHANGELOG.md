@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.6...v0.0.7) (2019-12-25)
+
+
+### Bug Fixes
+
+* **utils:** remove :[filename] from git rev-parse HEAD:[filename] ([b962e0a](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b962e0a2a2f2943a4a9c16746e0f6a42d468de63))
+
 ### [0.0.6](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.5...v0.0.6) (2019-12-25)
 
 
