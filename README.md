@@ -1,4 +1,4 @@
-endpoints-sdk-cli
+matsuri-tech/endpoints-sdk-cli (mes)
 =======================
 
 Endpoints SDK for JavaScript
