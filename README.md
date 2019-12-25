@@ -1,7 +1,7 @@
 endpoints-sdk-cli
 =======================
 
-example multi-command CLI built with typescript
+Endpoints SDK for JavaScript
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@oclif/example-multi-ts.svg)](https://npmjs.org/package/@oclif/example-multi-ts)
