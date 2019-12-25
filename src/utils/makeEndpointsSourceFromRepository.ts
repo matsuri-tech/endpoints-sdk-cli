@@ -11,7 +11,7 @@ export const makeEndpointsSourceFromRepository = (cacheDirectory = './node_modul
     if (version && version !== 'latest') {
       execSync(`cd ${tmp}; git reset --hard ${version}`)
     }
-    const hash = execSync(`cd ${tmp}; git rev-parse HEAD:.endpoints.json`).toString().trim()
+    const hash = execSync(`cd ${tmp}; git rev-parse HEAD`).toString().trim()
     execSync(`cd ${tmp} && git checkout origin/master -- .endpoints.json`)
     const data: Endpoints = JSON.parse(readFileSync(`${tmp}/.endpoints.json`).toString())
     cli.action.stop()
