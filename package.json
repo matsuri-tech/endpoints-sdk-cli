@@ -64,7 +64,7 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "release": "yarn dev && yarn prepack && standard-version && git add README.md && git commmit --amend --no-edit && git push --follow-tags origin master"
+    "release": "yarn dev && yarn prepack && standard-version && git add README.md && git commit --amend --no-edit && git push --follow-tags origin master"
   },
   "types": "lib/index.d.ts"
 }
