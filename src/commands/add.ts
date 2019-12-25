@@ -1,22 +1,36 @@
 import {Command, flags} from '@oclif/command'
-import {execSync} from 'child_process'
 import {writeFileSync, readFileSync, existsSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
-import {camelCase} from '../utils/camel-case'
-import {parseEndpoints} from '../utils/parse-endpoints'
+import {camelCase} from '../utils/camelCase'
+import {parseEndpoints} from '../utils/parseEndpoints'
 import * as prettier from 'prettier'
+import * as path from 'path'
+import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
 
-interface Endpoints {
-  dependencies?: {
-    [service: string]: {
-      version: string;
-      repository: string;
-    };
-  };
+const extractServiceNameFromPath = (path: string) => {
+  const splits = path.split('/')
+  const name = splits[splits.length - 1].split(/\./)[0]
+  return name
+}
+
+const inferRepository = (str: string) => {
+  if (str.startsWith('https://')) {
+    return str
+  }
+  if (str.startsWith('git@')) {
+    return str
+  }
+  if (str.startsWith('./')) {
+    return path.resolve(__dirname, str)
+  }
+  if (str.startsWith('/')) {
+    return str
+  }
+  return `git@github.com:${str}.git`
 }
 
 export default class Add extends Command {
-  static description = 'describe the command here'
+  static description = 'add service to dependencies & generate endpoints files'
 
   static args = [{name: 'repository'}]
 
@@ -25,7 +39,7 @@ export default class Add extends Command {
   }
 
   async run() {
-    const {args: {repository}, flags: {version}}: {
+    const {args: {repository: _repository}, flags}: {
       args: {
         repository: string;
       };
@@ -34,52 +48,69 @@ export default class Add extends Command {
       };
     } = this.parse(Add)
 
-    const splits = repository.split('/')
-    const repository_name = splits[splits.length - 1].split(/\./)[0]
+    const repository = inferRepository(_repository)
+
+    const repository_name = extractServiceNameFromPath(repository)
     const repositoryName = camelCase(repository_name)
+    const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
 
-    const tmpDir = '.endpoints-tmp'
-    execSync(`git clone --no-checkout ${repository} ${tmpDir}/${repositoryName}`)
-    const hash = execSync(`cd ${tmpDir}/${repositoryName}; git rev-parse HEAD`).toString().trim()
-    execSync(`cd ${tmpDir}/${repositoryName} && git checkout origin/master -- .endpoints.json`)
-    const data = JSON.parse(readFileSync(`${tmpDir}/${repositoryName}/.endpoints.json`).toString())
+    try {
+      const {hash, data} = getEndpointsSourceFromRepository(repository, flags.version)
 
-    execSync('cd ../')
-    execSync(`rm -rf ${tmpDir}`)
+      const existsFile = existsSync('endpoints.json')
+      const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.json').toString()) : {dependencies: {}}
 
-    const existsFile = existsSync('endpoints.json')
-    const endpoints: Endpoints = existsFile ? JSON.parse(readFileSync('endpoints.json').toString()) : {dependencies: {}}
+      if (endpoints.dependencies?.[repositoryName] &&
+        flags.version === undefined && (
+          endpoints.dependencies[repositoryName].version === hash  ||
+          endpoints.dependencies[repositoryName].version === 'latest'
+        )
+      ) {
+        this.log(`${repositoryName} is latest version.`)
+      } else {
+        const outputDir = './src/endpoints/'
 
-    if (endpoints.dependencies?.[repositoryName] && version === undefined && (endpoints.dependencies[repositoryName].version === hash ||  endpoints.dependencies[repositoryName].version === 'latest')) {
-      this.log(`${repositoryName} is latest version.`)
-    } else {
-      writeFileSync('endpoints.json', JSON.stringify({dependencies: {...endpoints.dependencies, [repositoryName]: {version: version || hash, repository}}}, null, 2))
+        if (!existsSync(outputDir)) {
+          mkdirSync(outputDir)
+        }
 
-      const outputDir = './src/endpoints'
-
-      if (!existsSync(outputDir)) {
-        mkdirSync(outputDir)
-      }
-
-      const files: {
-        'version': string;
-        'basename': string;
-      }[] = []
-      // eslint-disable-next-line array-callback-return
-      parseEndpoints(data).map(({version, endpoints}) => {
-        const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
-        const basename = `${repository_name}.${version}`
-        files.push({
-          basename,
-          version: camelCase(version),
+        const files: {
+          'version': string;
+          'basename': string;
+        }[] = []
+        // eslint-disable-next-line array-callback-return
+        parseEndpoints(data).map(({version, endpoints}) => {
+          const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
+          const basename = `${repository_name}.${version}`
+          files.push({
+            basename,
+            version: camelCase(version),
+          })
+          writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
         })
-        writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
-      })
 
-      writeFileSync(`${outputDir}/${repository_name}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
-      export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
+        writeFileSync(`${outputDir}/${repository_name}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
+        export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
 
-      this.log(`${color.green('success')}: ${repositoryName} updated!`)
+        /**
+         * Update endpoionts.json
+         */
+        writeFileSync('endpoints.config.json', JSON.stringify({
+          dependencies: {
+            ...endpoints.dependencies,
+            [repository_name]: {
+              version: flags.version || hash,
+              repository,
+            },
+          },
+        }, null, 2))
+
+        this.log(`${color.green('success')}: ${repositoryName} updated!`)
+      }
+    } catch (error) {
+      this.error(color.red(error.message))
+    } finally {
+      cleanEndpointsSourceFromRepository()
     }
   }
 }

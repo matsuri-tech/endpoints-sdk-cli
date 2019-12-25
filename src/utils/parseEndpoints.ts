@@ -1,5 +1,5 @@
-import {camelCase} from './camel-case'
-import {parseUrl} from './parse-url'
+import {camelCase} from './camelCase'
+import {parseUrl} from './parseUrl'
 
 interface Service {
     [prefixName: string]: {

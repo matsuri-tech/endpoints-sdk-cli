@@ -23,6 +23,7 @@
     "@types/prettier": "^1.19.0",
     "@types/supports-color": "^5.3.0",
     "chai": "^4",
+    "cli-ux": "^5.4.1",
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.1",
@@ -63,7 +64,7 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "release": "standard-version && oclif-dev readme && git add README.md"
+    "release": "standard-version && oclif-dev readme && git add README.md && git commit --amend --no-edit && git push --follow-tags origin master"
   },
   "types": "lib/index.d.ts"
 }

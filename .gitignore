@@ -11,3 +11,4 @@ node_modules
 endpoints.json
 oclif.manifest.json
 src/endpoints/
+examples

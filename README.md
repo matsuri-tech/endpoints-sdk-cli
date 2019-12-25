@@ -33,10 +33,12 @@ USAGE
 <!-- commands -->
 * [`mes add [REPOSITORY]`](#mes-add-repository)
 * [`mes help [COMMAND]`](#mes-help-command)
+* [`mes install`](#mes-install)
+* [`mes update [SERVICE]`](#mes-update-service)
 
 ## `mes add [REPOSITORY]`
 
-describe the command here
+add service to dependencies & generate endpoints files
 
 ```
 USAGE
@@ -64,4 +66,26 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `mes install`
+
+generate endpoints files based on endpoints.json
+
+```
+USAGE
+  $ mes install
+```
+
+_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.2/src/commands/install.ts)_
+
+## `mes update [SERVICE]`
+
+update service version & regenerate endpoints files
+
+```
+USAGE
+  $ mes update [SERVICE]
+```
+
+_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v0.0.2/src/commands/update.ts)_
 <!-- commandsstop -->
