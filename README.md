@@ -38,7 +38,7 @@ USAGE
 
 ## `mes add [REPOSITORY]`
 
-add service to dependencies & generate endpoints files
+add service to dependencies & make endpoints files.
 
 ```
 USAGE
@@ -46,6 +46,26 @@ USAGE
 
 OPTIONS
   -v, --version=version  latest or commit hash
+
+DESCRIPTION
+  add service to dependencies & make endpoints files.
+
+  1. make endpoints.config.json for version control.
+
+  ```json
+  {
+     "dependencies": {
+       "service-name": {
+         "version": "26177ed7e673daf0cc5a69e9793dd863424d272f",
+         "repository": "git@github.com:[username/repository].git"
+       }
+     }
+  }
+  ```
+
+  > service name is inferred from Repository name.
+
+  2. make src/endpoints/[service-name].ts
 
 EXAMPLES
   $ mes add [username/repository]

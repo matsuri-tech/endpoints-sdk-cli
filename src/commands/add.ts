@@ -30,7 +30,26 @@ const inferRepository = (str: string) => {
 }
 
 export default class Add extends Command {
-  static description = 'add service to dependencies & generate endpoints files'
+  static description = `
+add service to dependencies & make endpoints files.
+
+1. make endpoints.config.json for version control.
+
+\`\`\`json
+{
+  "dependencies": {
+    "service-name": {
+      "version": "26177ed7e673daf0cc5a69e9793dd863424d272f",
+      "repository": "git@github.com:[username/repository].git"
+    }
+  }
+}
+\`\`\`
+
+> service name is inferred from Repository name.
+
+2. make src/endpoints/[service-name].ts
+`
 
   static args = [{name: 'repository'}]
 
