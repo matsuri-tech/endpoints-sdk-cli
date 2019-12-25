@@ -1,6 +1,6 @@
 import {Command} from '@oclif/command'
 import cli from 'cli-ux'
-import {writeFileSync} from 'fs'
+import {writeFileSync, existsSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
 import {parseEndpoints} from '../utils/parseEndpoints'
 import {camelCase} from '../utils/camelCase'
@@ -32,6 +32,9 @@ export default class Install extends Command {
         }[] = []
         cli.action.start(`generating ${repository_name} endpoints files.`)
         const outputDir = './src/endpoints'
+        if (!existsSync(outputDir)) {
+          mkdirSync(outputDir)
+        }
         const repositoryName = camelCase(repository_name)
         // eslint-disable-next-line array-callback-return
         parseEndpoints(data).map(({version, endpoints}) => {
