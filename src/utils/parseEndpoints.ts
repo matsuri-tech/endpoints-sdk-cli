@@ -19,7 +19,7 @@ interface Service {
 }
 
 const isNumberLiteral = (str: string) => {
-  return /^([1-9]\d*|0)$/.test(str)
+  return str !== '' && isFinite(Number(str))
 }
 export const parseEndpoints = (service: Service) => {
   return Object.entries(service).map(([version, {env, api}]) => {
