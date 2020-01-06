@@ -14,6 +14,7 @@ Endpoints SDK for JavaScript
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
+* [Support of `create-react-app`](#support-of-create-react-app)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -117,3 +118,12 @@ USAGE
 
 _See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v1.3.0/src/commands/update.ts)_
 <!-- commandsstop -->
+
+
+# Support of `create-react-app`
+
+```json
+{
+  "environment_identifier": "process.env.REACT_APP_ENV",
+}
+```
