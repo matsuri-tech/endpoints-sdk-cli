@@ -107,7 +107,7 @@ add service to dependencies & make endpoints files.
           'basename': string;
         }[] = []
         // eslint-disable-next-line array-callback-return
-        parseEndpoints(data).map(({version, endpoints}) => {
+        parseEndpoints(data, config?.environment_identifier).map(({version, endpoints}) => {
           const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
           const basename = `${repository_name}.${version}`
           files.push({

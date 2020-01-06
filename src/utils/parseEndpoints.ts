@@ -21,13 +21,13 @@ interface Service {
 const isNumberLiteral = (str: string) => {
   return str !== '' && isFinite(Number(str))
 }
-export const parseEndpoints = (service: Service) => {
+export const parseEndpoints = (service: Service, environment_identifier = 'process.env.NODE_ENV') => {
   return Object.entries(service).map(([version, {env, api}]) => {
     const root = `
     /**
      * A function that returns the URL part common to the endpoints.
      */
-    export const root = ()=>{let __root = "";${Object.entries(env).map(([envName, url]) => `if(process.env.NODE_ENV==='${envName === 'dev' ? 'development' : envName === 'prod' ? 'production' : envName}'){__root = '${url}'}`).join('')}return __root}`
+    export const root = ()=>{let __root = "";${Object.entries(env).map(([envName, url]) => `if(${environment_identifier}==='${envName === 'dev' ? 'development' : envName === 'prod' ? 'production' : envName}'){__root = '${url}'}`).join('')}return __root}`
     let endpoints: {
       [endpoint: string]: string;
     } = {root}

@@ -1,4 +1,5 @@
 interface Config {
+    environment_identifier: string;
     dependencies: {
       [service: string]: {
         version: string;
