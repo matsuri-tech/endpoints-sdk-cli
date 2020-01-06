@@ -19,17 +19,33 @@ export const parseUrl = (url: string) => {
     } => {
     return Boolean(query)
   })
+
+  const queryParamNames =  queryParams.map(queryParam => queryParam.name)
+  const pathParamNames = pathParams.map(pathParam => pathParam.name)
+  const paramNames =  [...new Set([...queryParamNames, ...pathParamNames])]
+
+  const flags: {
+    [name: string]: boolean;
+  } = {}
+
   const params: {
     name: string;
     example?: string;
-  }[] = [...queryParams, ...pathParams]
+  }[] = [...queryParams, ...pathParams].filter(entry => {
+    if (flags[entry.name]) {
+      return false
+    }
+    flags[entry.name] = true
+    return true
+  })
+
   return {
     path,
     queryParams,
-    queryParamNames: queryParams.map(queryParam => queryParam.name),
+    queryParamNames,
     pathParams,
-    pathParamNames: pathParams.map(pathParam => pathParam.name),
+    pathParamNames,
     params,
-    paramNames: params.map(param => param.name),
+    paramNames,
   }
 }
