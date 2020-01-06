@@ -22,7 +22,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/1.1.0 darwin-x64 node-v12.6.0
+endpoints-sdk-cli/1.1.0 darwin-x64 node-v13.2.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND

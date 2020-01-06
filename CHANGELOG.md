@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.10...v1.2.0) (2020-01-06)
+
+
+### Features
+
+* **utils:** add support of float number ([d43f338](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/d43f338440b8fc806eb9c39be9fb6d5f9c34491c))
+
+
+### Bug Fixes
+
+* fix params ([650458b](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/650458b4b49a9b6cdebe9c8d8d0de1a8e4ec67b7))
+* **commands:** make success even if the endpoints directory does not exist ([68f2bf0](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/68f2bf08d502818dbec42f05d1e0eb4dff4a2dfa))
+* **commands/add:** fix getConfig ([67270d2](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/67270d274121cc7ab999684e3abfa207bda4f1ee))
+
 ## [1.1.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v0.0.10...v1.1.0) (2019-12-26)
 
 
