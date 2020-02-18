@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v1.4.0...v2.0.2) (2020-02-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* The format of endpoints.config.json has changed
+
+### Bug Fixes
+
+* avoid duplicate workspaces ([94309b2](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/94309b2a9fb777ee0ac136fa47f0af6f3e709244))
+* disable checking version ([67773ff](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/67773ff7521628c33a4a2124ce7f2a34dc133e74))
+* make workspace management method change to monorepo style ([ab27e6c](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/ab27e6ceca60ac2a4c1960c0aeafa2787d937d0c)), closes [#7](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/7) [#9](https://github.com/matsuri-tech/endpoints-sdk-cli/issues/9)
+
 ## [2.0.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v1.4.0...v2.0.0) (2020-02-18)
 
 
