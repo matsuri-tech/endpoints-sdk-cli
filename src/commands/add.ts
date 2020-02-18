@@ -53,6 +53,7 @@ add service to dependencies & make endpoints files.
 
   static flags = {
     version: flags.string({char: 'v', description: 'latest or commit hash'}),
+    workspace: flags.string({char: 'w', description: 'a path to workspace containing .endpoints.json'}),
   }
 
   static examples = [
@@ -73,6 +74,7 @@ add service to dependencies & make endpoints files.
       };
       flags: {
         version?: string;
+        workspace?: string;
       };
     } = this.parse(Add)
 
@@ -83,18 +85,18 @@ add service to dependencies & make endpoints files.
     const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
 
     try {
-      const {hash, data} = getEndpointsSourceFromRepository(repository, flags.version)
+      const {hash, data} = getEndpointsSourceFromRepository({repository, version: flags.version, workspace: flags.workspace})
 
-      const path = 'endpoints.config.json'
-      const config: Config = existsSync(path) ? JSON.parse(readFileSync(path).toString()) : {dependencies: {}}
+      const file = 'endpoints.config.json'
+      const config: Config = existsSync(file) ? JSON.parse(readFileSync(file).toString()) : {dependencies: {}}
 
-      if (config.dependencies?.[repositoryName] &&
+      if (config.dependencies?.[repository_name] &&
         flags.version === undefined && (
-          config.dependencies[repositoryName].version === hash  ||
-          config.dependencies[repositoryName].version === 'latest'
+          config.dependencies[repository_name].version === hash  ||
+          config.dependencies[repository_name].version === 'latest'
         )
       ) {
-        this.log(`${repositoryName} is latest version.`)
+        this.log(`${repository_name} is latest version.`)
       } else {
         const outputDir = './src/endpoints/'
 
@@ -106,10 +108,12 @@ add service to dependencies & make endpoints files.
           'version': string;
           'basename': string;
         }[] = []
+        const workspaceName = flags.workspace ? path.basename(flags.workspace, path.extname(flags.workspace)) : ''
+
         // eslint-disable-next-line array-callback-return
         parseEndpoints(data, config?.environment_identifier).map(({version, endpoints}) => {
           const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
-          const basename = `${repository_name}.${version}`
+          const basename = [repository_name, workspaceName, version].filter(e => Boolean(e)).join('.')
           files.push({
             basename,
             version: camelCase(version),
@@ -117,7 +121,7 @@ add service to dependencies & make endpoints files.
           writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
         })
 
-        writeFileSync(`${outputDir}/${repository_name}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
+        writeFileSync(`${outputDir}/${[repository_name, workspaceName].filter(e => Boolean(e)).join('.')}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
         export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
 
         /**
@@ -129,6 +133,7 @@ add service to dependencies & make endpoints files.
             [repository_name]: {
               version: flags.version || hash,
               repository,
+              workspace: flags.workspace,
             },
           },
         }, null, 2))
