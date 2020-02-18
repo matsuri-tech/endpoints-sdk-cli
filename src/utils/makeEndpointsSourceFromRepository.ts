@@ -1,9 +1,10 @@
 import {execSync} from 'child_process'
 import {readFileSync} from 'fs'
 import cli from 'cli-ux'
+import path from 'path'
 
 export const makeEndpointsSourceFromRepository = (cacheDirectory = './node_modules/.endpoints-tmp/') => {
-  const getEndpointsSourceFromRepository = (repository: string, version?: string | 'latest') => {
+  const getEndpointsSourceFromRepository = ({repository, version, workspace = ''}: {repository: string; version?: string | 'latest'; workspace?: string}) => {
     const id = Math.random().toString(36).slice(-8)
     const tmp = `${cacheDirectory}${id}`
     cli.action.start(`cloning ${repository}`)
@@ -12,8 +13,9 @@ export const makeEndpointsSourceFromRepository = (cacheDirectory = './node_modul
       execSync(`cd ${tmp}; git reset --hard ${version}`)
     }
     const hash = execSync(`cd ${tmp}; git rev-parse HEAD`).toString().trim()
-    execSync(`cd ${tmp} && git checkout origin/master -- .endpoints.json`)
-    const data: Endpoints = JSON.parse(readFileSync(`${tmp}/.endpoints.json`).toString())
+    const file = path.resolve(tmp, workspace, '.endpoints.json')
+    execSync(`cd ${tmp} && git checkout origin/master -- ${file}`)
+    const data: Endpoints = JSON.parse(readFileSync(file).toString())
     cli.action.stop()
     return {
       hash, data,

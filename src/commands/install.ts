@@ -7,6 +7,7 @@ import {camelCase} from '../utils/camelCase'
 import * as prettier from 'prettier'
 import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
 import {getConfig} from '../utils/getConfig'
+import * as path from 'path'
 
 export default class Install extends Command {
   static description = 'generate endpoints files based on endpoints.config.json'
@@ -20,8 +21,8 @@ export default class Install extends Command {
       }
 
       // eslint-disable-next-line array-callback-return
-      Object.entries(config.dependencies).map(([repository_name, {version, repository}]) => {
-        const {data} = getEndpointsSourceFromRepository(repository, version)
+      Object.entries(config.dependencies).map(([repository_name, {version, repository, workspace}]) => {
+        const {data} = getEndpointsSourceFromRepository({repository, version, workspace})
 
         /**
          * Generate endpoints files
@@ -36,10 +37,12 @@ export default class Install extends Command {
           mkdirSync(outputDir)
         }
         const repositoryName = camelCase(repository_name)
+        const workspaceName = workspace ? path.basename(workspace, path.extname(workspace)) : ''
+
         // eslint-disable-next-line array-callback-return
         parseEndpoints(data, config?.environment_identifier).map(({version, endpoints}) => {
           const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
-          const basename = `${repository_name}.${version}`
+          const basename = [repository_name, workspaceName, version].filter(e => Boolean(e)).join('.')
           files.push({
             basename,
             version: camelCase(version),
@@ -47,7 +50,7 @@ export default class Install extends Command {
           writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
         })
 
-        writeFileSync(`${outputDir}/${repository_name}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
+        writeFileSync(`${outputDir}/${[repository_name, workspaceName].filter(e => Boolean(e)).join('.')}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
         export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
         cli.action.stop()
       })
