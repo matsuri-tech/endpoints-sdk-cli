@@ -13,10 +13,10 @@ export const updateConfigFile = (config: Config, {repository, service, version, 
       [service]: {
         version,
         repository,
-        workspaces: workspace ? config?.dependencies?.[service]?.workspaces ? [
+        workspaces: workspace ? config?.dependencies?.[service]?.workspaces ? [...new Set([
           ...config?.dependencies?.[service].workspaces,
           workspace,
-        ] : [workspace] : undefined,
+        ])] : [...new Set([workspace])] : undefined,
       },
     },
   }
