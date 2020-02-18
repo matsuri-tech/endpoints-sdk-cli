@@ -69,25 +69,16 @@ add service to dependencies & make endpoints files.
 
       const config: Config = existsSync(CONFIG_FILE) ? JSON.parse(readFileSync(CONFIG_FILE).toString()) : {dependencies: {}}
 
-      if (config.dependencies?.[repository_name] &&
-        version === undefined && (
-          config.dependencies[repository_name].version === hash  ||
-          config.dependencies[repository_name].version === 'latest'
-        )
-      ) {
-        this.log(`${repository_name} is latest version.`)
-      } else {
-        makeEndpointsFiles({workspace, data, config, repository_name})
+      makeEndpointsFiles({workspace, data, config, repository_name})
 
-        updateConfigFile(config, {
-          service: repository_name,
-          repository,
-          workspace,
-          version: version || hash,
-        })
+      updateConfigFile(config, {
+        service: repository_name,
+        repository,
+        workspace,
+        version: version || hash,
+      })
 
-        this.log(`${color.green('success')}: ${repository_name} updated!`)
-      }
+      this.log(`${color.green('success')}: ${repository_name} updated!`)
     } catch (error) {
       this.error(color.red(error.message))
     } finally {
