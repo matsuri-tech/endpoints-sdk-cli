@@ -46,7 +46,8 @@ USAGE
   $ mes add [REPOSITORY]
 
 OPTIONS
-  -v, --version=version  latest or commit hash
+  -v, --version=version      latest or commit hash
+  -w, --workspace=workspace  a path to workspace containing .endpoints.json
 
 DESCRIPTION
   add service to dependencies & make endpoints files.
