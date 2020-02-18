@@ -1,13 +1,8 @@
 import {Command} from '@oclif/command'
-import cli from 'cli-ux'
-import {writeFileSync, existsSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
-import {parseEndpoints} from '../utils/parseEndpoints'
-import {camelCase} from '../utils/camelCase'
-import * as prettier from 'prettier'
 import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
 import {getConfig} from '../utils/getConfig'
-import * as path from 'path'
+import {makeEndpointsFiles} from '../utils/makeEndpointsFiles'
 
 export default class Install extends Command {
   static description = 'generate endpoints files based on endpoints.config.json'
@@ -21,38 +16,12 @@ export default class Install extends Command {
       }
 
       // eslint-disable-next-line array-callback-return
-      Object.entries(config.dependencies).map(([repository_name, {version, repository, workspace}]) => {
-        const {data} = getEndpointsSourceFromRepository({repository, version, workspace})
-
-        /**
-         * Generate endpoints files
-         */
-        const files: {
-          'version': string;
-          'basename': string;
-        }[] = []
-        cli.action.start(`generating ${repository_name} endpoints files.`)
-        const outputDir = './src/endpoints'
-        if (!existsSync(outputDir)) {
-          mkdirSync(outputDir)
-        }
-        const repositoryName = camelCase(repository_name)
-        const workspaceName = workspace ? path.basename(workspace, path.extname(workspace)) : ''
-
+      Object.entries(config.dependencies).map(([repository_name, {version, repository, workspaces = ['']}]) => {
         // eslint-disable-next-line array-callback-return
-        parseEndpoints(data, config?.environment_identifier).map(({version, endpoints}) => {
-          const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
-          const basename = [repository_name, workspaceName, version].filter(e => Boolean(e)).join('.')
-          files.push({
-            basename,
-            version: camelCase(version),
-          })
-          writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
+        workspaces.map(workspace => {
+          const {data} = getEndpointsSourceFromRepository({repository, version, workspace})
+          makeEndpointsFiles({workspace, data, repository_name, config})
         })
-
-        writeFileSync(`${outputDir}/${[repository_name, workspaceName].filter(e => Boolean(e)).join('.')}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
-        export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
-        cli.action.stop()
       })
     } catch (error) {
       this.error(color.red(error.message))

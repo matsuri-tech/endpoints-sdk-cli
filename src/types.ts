@@ -4,7 +4,7 @@ interface Config {
       [service: string]: {
         version: string;
         repository: string;
-        workspace?: string;
+        workspaces?: string[];
       };
     } | undefined;
   }
