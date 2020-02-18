@@ -1,12 +1,9 @@
 import {Command} from '@oclif/command'
-import {writeFileSync, readFileSync, existsSync, mkdirSync} from 'fs'
 import {color} from '@oclif/color'
-import {camelCase} from '../utils/camelCase'
-import {parseEndpoints} from '../utils/parseEndpoints'
-import * as prettier from 'prettier'
 import {getConfig} from '../utils/getConfig'
 import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
-import * as path from 'path'
+import {makeEndpointsFiles} from '../utils/makeEndpointsFiles'
+import {updateConfigFile} from '../utils/updateConfigFile'
 
 export default class Update extends Command {
   static description = 'update service version & regenerate endpoints files'
@@ -30,55 +27,20 @@ export default class Update extends Command {
       if (!(service in config.dependencies)) {
         throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.config.json. Or use the add command to add dependencies before installing')
       }
-      const {repository, version, workspace} = config.dependencies[service]
-      const repository_name = service
-      const repositoryName = camelCase(service)
-      const {hash, data} = getEndpointsSourceFromRepository({repository, workspace})
-
-      const existsFile = existsSync('endpoints.config.json')
-      const endpoints: Config = existsFile ? JSON.parse(readFileSync('endpoints.config.json').toString()) : {dependencies: {}}
-
-      const outputDir = './src/endpoints'
-
-      if (!existsSync(outputDir)) {
-        mkdirSync(outputDir)
-      }
-
-      const files: {
-        'version': string;
-        'basename': string;
-      }[] = []
-      const workspaceName = workspace ? path.basename(workspace, path.extname(workspace)) : ''
-
+      const {repository, version, workspaces = ['']} = config.dependencies[service]
       // eslint-disable-next-line array-callback-return
-      parseEndpoints(data, config?.environment_identifier).map(({version, endpoints}) => {
-        const main = `export const ${repositoryName}_${camelCase(version)} = {${Object.keys(endpoints).join(',')}}`
-        const basename = [repository_name, workspaceName, version].filter(e => Boolean(e)).join('.')
-        files.push({
-          basename,
-          version: camelCase(version),
+      workspaces.map(workspace => {
+        const {hash, data} = getEndpointsSourceFromRepository({repository, workspace})
+
+        makeEndpointsFiles({data, workspace, repository_name: service, config})
+
+        updateConfigFile(config, {
+          service,
+          version: version === 'latest' ? 'latest' : hash,
+          repository,
+          workspace,
         })
-        writeFileSync(`${outputDir}/${basename}.ts`, prettier.format(['/* eslint-disable */', ...Object.values(endpoints), main].join(''), {parser: 'typescript'}))
       })
-
-      writeFileSync(`${outputDir}/${[repository_name, workspaceName].filter(e => Boolean(e)).join('.')}.ts`, prettier.format(`/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
-      export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`, {parser: 'typescript'}))
-
-      /**
-       * Update endpoionts.json
-       */
-      writeFileSync('endpoints.config.json', JSON.stringify({
-        dependencies: {
-          ...endpoints.dependencies,
-          [repository_name]: {
-            version: version === 'latest' ? 'latest' : hash,
-            repository,
-            workspace,
-          },
-        },
-      }, null, 2))
-
-      this.log(`${color.green('success')}: ${repositoryName} updated!`)
     } catch (error) {
       this.error(color.red(error.message))
     } finally {
