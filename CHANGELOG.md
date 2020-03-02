@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.5](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.4...v2.0.5) (2020-03-02)
+
+
+### Bug Fixes
+
+* **parseEndpoints:** allow leading slashe in path ([1580156](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/1580156d002707ef4812124f195d8b97ffff06f5))
+
 ### [2.0.4](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.2...v2.0.4) (2020-02-19)
 
 ### [2.0.2](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.0...v2.0.2) (2020-02-18)
