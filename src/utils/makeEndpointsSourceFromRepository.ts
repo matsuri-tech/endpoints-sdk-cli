@@ -1,5 +1,6 @@
 import {execSync} from 'child_process'
 import {readFileSync} from 'fs'
+import rimraf from "rimraf"
 import cli from 'cli-ux'
 import path from 'path'
 
@@ -23,7 +24,7 @@ export const makeEndpointsSourceFromRepository = (cacheDirectory = './node_modul
   }
   const cleanEndpointsSourceFromRepository = () => {
     cli.action.start('cleaning temporary directory')
-    execSync(`rm -rf ${cacheDirectory}`)
+    rimraf.sync(cacheDirectory)
     cli.action.stop()
   }
   return {
