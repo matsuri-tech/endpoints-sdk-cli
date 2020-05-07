@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.6](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.5...v2.0.6) (2020-05-07)
+
+
+### Bug Fixes
+
+* windowsでrmコマンドが失敗する状態の解消 ([24285b9](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/24285b98545e4b63b5c063138ac08371f7bd892e))
+
 ### [2.0.5](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.4...v2.0.5) (2020-03-02)
 
 
