@@ -1,4 +1,5 @@
 import {writeFileSync} from 'fs'
+import * as prettier from 'prettier'
 import {CONFIG_FILE} from '../constants'
 export const updateConfigFile = (config: Config, {repository, service, version, workspace}: {
   service: string;
@@ -21,5 +22,5 @@ export const updateConfigFile = (config: Config, {repository, service, version, 
       },
     },
   }
-  return writeFileSync(CONFIG_FILE, JSON.stringify(data, null, 2))
+  return writeFileSync(CONFIG_FILE, prettier.format(JSON.stringify(data, null, 2), {parser: 'json'}))
 }
