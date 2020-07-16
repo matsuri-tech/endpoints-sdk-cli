@@ -3,6 +3,8 @@ matsuri-tech/endpoints-sdk-cli (mes)
 
 Endpoints SDK for JavaScript
 
+※ Include the generated endpoint files in commits.
+
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
