@@ -23,7 +23,7 @@ const isNumberLiteral = (str: string) => {
 }
 export const parseEndpoints = (
   service: Service,
-  environment_identifier = 'process.env.NODE_ENV'
+  environment_identifier = 'process.env.NODE_ENV',
 ) => {
   return Object.entries(service).map(([version, {env, api}]) => {
     const root = `
@@ -39,7 +39,7 @@ export const parseEndpoints = (
           envName === 'prod' ?
             'production' :
             envName
-      }'){__root = '${url.endsWith('/') ? url.slice(0, -1) : url}'}`
+      }'){__root = '${url.endsWith('/') ? url.slice(0, -1) : url}'}`,
   )
   .join('')}return __root}`
     let endpoints: {
@@ -85,7 +85,7 @@ export const parseEndpoints = (
       const FIXED_PATH = path
       .split('/')
       .map(pathFrag =>
-        pathFrag.startsWith(':') ? `\${${pathFrag.slice(1)}}` : pathFrag
+        pathFrag.startsWith(':') ? `\${${pathFrag.slice(1)}}` : pathFrag,
       )
       .join('/')
       const NORMALIZED_FIXED_PATH =  FIXED_PATH.startsWith('/') ? FIXED_PATH.slice(1) : FIXED_PATH
