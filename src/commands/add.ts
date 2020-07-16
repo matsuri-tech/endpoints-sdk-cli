@@ -1,8 +1,8 @@
 import {Command, flags} from '@oclif/command'
 import {existsSync, readFileSync} from 'fs'
 import {color} from '@oclif/color'
-import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
-import {makeEndpointsFiles} from '../utils/makeEndpointsFiles'
+import {makeEndpointsSourceFromRepository} from '../parts/makeEndpointsSourceFromRepository'
+import {makeEndpointsFiles} from '../parts/makeEndpointsFiles'
 import {inferRepository} from '../utils/inferRepository'
 import {extractServiceNameFromPath} from '../utils/extractServiceNameFromPath'
 import {CONFIG_FILE} from '../constants'
@@ -26,14 +26,17 @@ add service to dependencies & make endpoints files.
 > service name is inferred from Repository name.
 
 2. make src/endpoints/[service-name].ts
-`
+`;
 
-  static args = [{name: 'repository'}]
+  static args = [{name: 'repository'}];
 
   static flags = {
     version: flags.string({char: 'v', description: 'latest or commit hash'}),
-    workspace: flags.string({char: 'w', description: 'a path to workspace containing .endpoints.json'}),
-  }
+    workspace: flags.string({
+      char: 'w',
+      description: 'a path to workspace containing .endpoints.json',
+    }),
+  };
 
   static examples = [
     '$ mes add [username/repository]',
@@ -46,36 +49,40 @@ add service to dependencies & make endpoints files.
     '$ mes add ./local-repository',
     '$ mes add git@github.com:[username/repository].git',
     '$ mes add https://github.com/[username/repository].git',
-  ]
+  ];
 
   async run() {
-    const {args: {repository: _repository}, flags: {version, workspace}}: {
-      args: {
-        repository: string;
-      };
-      flags: {
-        version?: string;
-        workspace?: string;
-      };
-    } = this.parse(Add)
+    const {flags, args} = this.parse<
+      { version?: string; workspace?: string },
+      { repository: string }
+    >(Add)
 
-    const repository = inferRepository(_repository)
+    const repository = inferRepository(args.repository)
 
     const repository_name = extractServiceNameFromPath(repository)
-    const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
+    const {
+      getEndpointsSourceFromRepository,
+      cleanEndpointsSourceFromRepository,
+    } = makeEndpointsSourceFromRepository()
 
     try {
-      const {hash, data} = getEndpointsSourceFromRepository({repository, version, workspace})
+      const {hash, data} = getEndpointsSourceFromRepository({
+        repository,
+        version: flags.version,
+        workspace: flags.version,
+      })
 
-      const config: Config = existsSync(CONFIG_FILE) ? JSON.parse(readFileSync(CONFIG_FILE).toString()) : {dependencies: {}}
+      const config: Config = existsSync(CONFIG_FILE) ?
+        JSON.parse(readFileSync(CONFIG_FILE).toString()) :
+        {dependencies: {}}
 
-      makeEndpointsFiles({workspace, data, config, repository_name})
+      makeEndpointsFiles({workspace: flags.workspace, data, config, repository_name})
 
       updateConfigFile(config, {
         service: repository_name,
         repository,
-        workspace,
-        version: version || hash,
+        workspace: flags.workspace,
+        version: flags.version || hash,
       })
 
       this.log(`${color.green('success')}: ${repository_name} updated!`)

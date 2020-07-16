@@ -1,8 +1,8 @@
 import {Command} from '@oclif/command'
 import {color} from '@oclif/color'
-import {makeEndpointsSourceFromRepository} from '../utils/makeEndpointsSourceFromRepository'
+import {makeEndpointsSourceFromRepository} from '../parts/makeEndpointsSourceFromRepository'
 import {getConfig} from '../utils/getConfig'
-import {makeEndpointsFiles} from '../utils/makeEndpointsFiles'
+import {makeEndpointsFiles} from '../parts/makeEndpointsFiles'
 
 export default class Install extends Command {
   static description = 'generate endpoints files based on endpoints.config.json'
