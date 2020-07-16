@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.6...v2.1.0) (2020-07-16)
+
+
+### Features
+
+* allow to specify a directory for generating endpoints ([0bd442e](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/0bd442e02c2e06063e60ab002369c739cb02742b))
+
+
+### Bug Fixes
+
+* format generated config file ([758a2db](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/758a2db3a48b284082648c431f2d660e21974bb1))
+
 ### [2.0.6](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.5...v2.0.6) (2020-05-07)
 
 

@@ -17,7 +17,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/2.0.5 darwin-x64 node-v13.8.0
+endpoints-sdk-cli/2.1.0 darwin-x64 node-v12.17.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND
@@ -74,7 +74,7 @@ EXAMPLES
   $ mes add https://github.com/[username/repository].git
 ```
 
-_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.0.5/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.1.0/src/commands/add.ts)_
 
 ## `mes help [COMMAND]`
 
@@ -91,7 +91,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 
 ## `mes install`
 
@@ -102,7 +102,7 @@ USAGE
   $ mes install
 ```
 
-_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.0.5/src/commands/install.ts)_
+_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.1.0/src/commands/install.ts)_
 
 ## `mes update [SERVICE]`
 
@@ -113,7 +113,7 @@ USAGE
   $ mes update [SERVICE]
 ```
 
-_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.0.5/src/commands/update.ts)_
+_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.1.0/src/commands/update.ts)_
 <!-- commandsstop -->
 
 
