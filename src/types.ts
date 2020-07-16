@@ -1,12 +1,13 @@
 interface Config {
-    environment_identifier: string;
-    dependencies: {
+    output?: string;
+    environment_identifier?: string;
+    dependencies?: {
       [service: string]: {
         version: string;
         repository: string;
         workspaces?: string[];
       };
-    } | undefined;
+    };
   }
 
   interface Endpoints {

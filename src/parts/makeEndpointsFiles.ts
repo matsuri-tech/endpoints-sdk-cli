@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as fs from 'fs'
-import {parseEndpoints} from './parseEndpoints'
-import {camelCase} from './camelCase'
+import {parseEndpoints} from '../utils/parseEndpoints'
+import {camelCase} from '../utils/camelCase'
 import * as prettier from 'prettier'
 import cli from 'cli-ux'
 
@@ -9,7 +9,7 @@ const getWorkspaceName = (dir: string) => {
   return path.basename(dir, path.extname(dir))
 }
 
-const DIST_DIRECTORY = './src/endpoints/'
+const DEFAULT_OUTPUT_DIR = fs.existsSync(path.resolve('./src')) ? path.resolve('./src/endpoints/') : path.resolve('./endpoints/')
 
 const resolveFileBasename = (...args: string[]) => {
   return args.filter(e => Boolean(e)).join('.')
@@ -26,10 +26,12 @@ export const makeEndpointsFiles = ({
   data: Endpoints;
   config: Config;
 }) => {
+  const outputDir = config?.output ? path.resolve(config?.output) : DEFAULT_OUTPUT_DIR
+
   cli.action.start(`generating ${repository_name} endpoints files.`)
 
-  if (!fs.existsSync(DIST_DIRECTORY)) {
-    fs.mkdirSync(DIST_DIRECTORY)
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir)
   }
   const workspaceName = workspace ? getWorkspaceName(workspace) : ''
   const repositoryName = camelCase(repository_name)
@@ -50,8 +52,7 @@ export const makeEndpointsFiles = ({
         basename,
         version: camelCase(version),
       })
-      fs.writeFileSync(
-        `${DIST_DIRECTORY}/${basename}.ts`,
+      fs.writeFileSync(path.relative(outputDir, `${basename}.ts`),
         prettier.format(
           ['/* eslint-disable */', ...Object.values(endpoints), main].join(''),
           {parser: 'typescript'},
@@ -61,7 +62,7 @@ export const makeEndpointsFiles = ({
   )
 
   fs.writeFileSync(
-    `${DIST_DIRECTORY}/${resolveFileBasename(repository_name, workspaceName)}.ts`,
+    path.resolve(outputDir, `${resolveFileBasename(repository_name, workspaceName)}.ts`),
     prettier.format(
       `/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
       export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`,
