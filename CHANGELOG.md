@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.0...v2.1.1) (2020-08-20)
+
+
+### Bug Fixes
+
+* replace path.relative with path.resolve ([c125116](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/c125116f2ed2d3e0f1dfb936bd8eee2c7f98e134))
+
 ## [2.1.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.0.6...v2.1.0) (2020-07-16)
 
 
