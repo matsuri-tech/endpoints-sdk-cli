@@ -37,9 +37,9 @@ export const makeEndpointsFiles = ({
   const repositoryName = camelCase(repository_name)
 
   const files: {
-    version: string;
-    basename: string;
-  }[] = []
+      version: string;
+      basename: string;
+    }[] = []
 
   parseEndpoints(data, config?.environment_identifier).map(
     // eslint-disable-next-line array-callback-return
@@ -52,7 +52,7 @@ export const makeEndpointsFiles = ({
         basename,
         version: camelCase(version),
       })
-      fs.writeFileSync(path.relative(outputDir, `${basename}.ts`),
+      fs.writeFileSync(path.resolve(outputDir, `${basename}.ts`),
         prettier.format(
           ['/* eslint-disable */', ...Object.values(endpoints), main].join(''),
           {parser: 'typescript'},
@@ -65,9 +65,10 @@ export const makeEndpointsFiles = ({
     path.resolve(outputDir, `${resolveFileBasename(repository_name, workspaceName)}.ts`),
     prettier.format(
       `/* eslint-disable */ \n ${files.map(({basename, version}) => `import * as ${version} from './${basename}'`).join('\n')}
-      export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`,
+        export const ${repositoryName} = {${files.map(({version}) => version).join(',')}}`,
       {parser: 'typescript'},
     ),
   )
+
   cli.action.stop()
 }
