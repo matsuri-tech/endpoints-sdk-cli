@@ -1,9 +1,8 @@
+import {Repository} from '../classes/Repository'
+import {Config} from '../classes/Config'
 import {Command} from '@oclif/command'
 import {color} from '@oclif/color'
-import {getConfig} from '../utils/getConfig'
-import {makeEndpointsSourceFromRepository} from '../parts/makeEndpointsSourceFromRepository'
-import {makeEndpointsFiles} from '../parts/makeEndpointsFiles'
-import {updateConfigFile} from '../utils/updateConfigFile'
+import {makeFiles} from '../makeFiles'
 
 export default class Update extends Command {
   static description = 'update service version & regenerate endpoints files'
@@ -13,34 +12,38 @@ export default class Update extends Command {
   async run() {
     const {args} = this.parse<{}, {service: string}>(Update)
 
-    const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
+    const repositories: Repository[] = []
 
     try {
-      const config = getConfig()
+      const config = new Config()
+
       if (!config.dependencies) {
         throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
       if (!(args.service in config.dependencies)) {
         throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.config.json. Or use the add command to add dependencies before installing')
       }
-      const {repository, version, workspaces = ['']} = config.dependencies[args.service]
-      // eslint-disable-next-line array-callback-return
-      workspaces.map(workspace => {
-        const {hash, data} = getEndpointsSourceFromRepository({repository, workspace})
+      const {repository: path, version, workspaces = ['']} = config.dependencies[args.service]
 
-        makeEndpointsFiles({data, workspace, repository_name: args.service, config})
-
-        updateConfigFile(config, {
-          service: args.service,
-          version: version === 'latest' ? 'latest' : hash,
-          repository,
+      workspaces.forEach(workspace => {
+        const repository = new Repository(path)
+        repository.clone({version, workspace})
+        makeFiles({repository, config, workspace})
+        config.push({
+          name: repository.name,
+          path: repository.path,
+          version: version || repository.hash,
           workspace,
         })
+        repositories.push(repository)
       })
+      config.publish()
     } catch (error) {
       this.error(color.red(error.message))
     } finally {
-      cleanEndpointsSourceFromRepository()
+      repositories.forEach(repository => {
+        repository.clean()
+      })
     }
   }
 }

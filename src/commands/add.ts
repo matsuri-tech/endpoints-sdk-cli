@@ -1,12 +1,8 @@
+import {Config} from '../classes/Config'
 import {Command, flags} from '@oclif/command'
-import {existsSync, readFileSync} from 'fs'
 import {color} from '@oclif/color'
-import {makeEndpointsSourceFromRepository} from '../parts/makeEndpointsSourceFromRepository'
-import {makeEndpointsFiles} from '../parts/makeEndpointsFiles'
-import {inferRepository} from '../utils/inferRepository'
-import {extractServiceNameFromPath} from '../utils/extractServiceNameFromPath'
-import {CONFIG_FILE} from '../constants'
-import {updateConfigFile} from '../utils/updateConfigFile'
+import {Repository} from '../classes/Repository'
+import {makeFiles} from '../makeFiles'
 
 export default class Add extends Command {
   static description = `
@@ -52,44 +48,34 @@ add service to dependencies & make endpoints files.
   ];
 
   async run() {
-    const {flags, args} = this.parse<
+    const {flags: {version, workspace}, args} = this.parse<
       { version?: string; workspace?: string },
       { repository: string }
     >(Add)
 
-    const repository = inferRepository(args.repository)
-
-    const repository_name = extractServiceNameFromPath(repository)
-    const {
-      getEndpointsSourceFromRepository,
-      cleanEndpointsSourceFromRepository,
-    } = makeEndpointsSourceFromRepository()
+    const repository = new Repository(args.repository)
 
     try {
-      const {hash, data} = getEndpointsSourceFromRepository({
-        repository,
-        version: flags.version,
-        workspace: flags.version,
+      repository.clone({version, workspace})
+
+      const config = new Config()
+
+      makeFiles({repository, config, workspace})
+
+      config.push({
+        name: repository.name,
+        path: repository.path,
+        version: version || repository.hash,
+        workspace,
       })
 
-      const config: Config = existsSync(CONFIG_FILE) ?
-        JSON.parse(readFileSync(CONFIG_FILE).toString()) :
-        {dependencies: {}}
+      config.publish()
 
-      makeEndpointsFiles({workspace: flags.workspace, data, config, repository_name})
-
-      updateConfigFile(config, {
-        service: repository_name,
-        repository,
-        workspace: flags.workspace,
-        version: flags.version || hash,
-      })
-
-      this.log(`${color.green('success')}: ${repository_name} updated!`)
+      this.log(`${color.green('success')}: ${repository.name} updated!`)
     } catch (error) {
-      this.error(color.red(error.message))
+      this.error(color.red(error.stack))
     } finally {
-      cleanEndpointsSourceFromRepository()
+      repository.clean()
     }
   }
 }
