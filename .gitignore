@@ -13,3 +13,4 @@ oclif.manifest.json
 src/endpoints/
 examples
 lab/
+endpoints/

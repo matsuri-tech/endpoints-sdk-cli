@@ -1,32 +1,34 @@
+import {Config} from '../classes/Config'
 import {Command} from '@oclif/command'
 import {color} from '@oclif/color'
-import {makeEndpointsSourceFromRepository} from '../parts/makeEndpointsSourceFromRepository'
-import {getConfig} from '../utils/getConfig'
-import {makeEndpointsFiles} from '../parts/makeEndpointsFiles'
+import {Repository} from '../classes/Repository'
+import {makeFiles} from '../makeFiles'
 
 export default class Install extends Command {
   static description = 'generate endpoints files based on endpoints.config.json'
 
   async run() {
-    const {getEndpointsSourceFromRepository, cleanEndpointsSourceFromRepository} = makeEndpointsSourceFromRepository()
+    const repositories: Repository[] = []
     try {
-      const config = getConfig()
+      const config = new Config()
       if (!config.dependencies) {
         throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
 
-      // eslint-disable-next-line array-callback-return
-      Object.entries(config.dependencies).map(([repository_name, {version, repository, workspaces = ['']}]) => {
-        // eslint-disable-next-line array-callback-return
-        workspaces.map(workspace => {
-          const {data} = getEndpointsSourceFromRepository({repository, version, workspace})
-          makeEndpointsFiles({workspace, data, repository_name, config})
+      Object.values(config.dependencies).forEach(({repository: path, version, workspaces = ['']}) => {
+        workspaces.forEach(workspace => {
+          const repository = new Repository(path)
+          repositories.push(repository)
+          repository.clone({version, workspace})
+          makeFiles({repository, workspace, config})
         })
       })
     } catch (error) {
       this.error(color.red(error.message))
     } finally {
-      cleanEndpointsSourceFromRepository()
+      repositories.forEach(repository => {
+        repository.clean()
+      })
     }
   }
 }
