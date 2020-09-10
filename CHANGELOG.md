@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.1...v2.1.2) (2020-09-10)
+
+
+### Bug Fixes
+
+* make function names camelCase ([8fcd5d2](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/8fcd5d276648b320209c5fae172732f4ebb284db))
+
 ### [2.1.1](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.0...v2.1.1) (2020-08-20)
 
 
