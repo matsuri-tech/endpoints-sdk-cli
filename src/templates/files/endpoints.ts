@@ -15,7 +15,8 @@ export const endpoints = ({
     config: Config;
   }): string => {
   const names: string[] = []
-  const fns = Object.entries(period.api).map(([name, endpoint]) => {
+  const fns = Object.entries(period.api).map(([_name, endpoint]) => {
+    const name = camelCase(_name)
     names.push(name)
     return templates.endpoint(name, endpoint)
   })
