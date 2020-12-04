@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.2...v2.1.3) (2020-12-04)
+
+
+### Bug Fixes
+
+* make config.output use relative path instead of absolute path ([5a57c95](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/5a57c95034d685153839b6d05a3ec67b2f2643f9))
+
 ### [2.1.2](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.1...v2.1.2) (2020-09-10)
 
 
