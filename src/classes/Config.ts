@@ -14,9 +14,7 @@ export class Config {
 
   path = 'endpoints.config.json';
 
-  output = path.resolve(
-    fs.existsSync(path.resolve('./src')) ? './src/endpoints/' : './endpoints/',
-  );
+  output = fs.existsSync(path.resolve('./src')) ? './src/endpoints/' : './endpoints/';
 
   environment_identifier = 'process.env.NODE_ENV';
 
@@ -27,7 +25,7 @@ export class Config {
         this.dependencies = data.dependencies
       }
       if (data.output) {
-        this.output = path.resolve(data.output)
+        this.output = data.output
       }
       if (!fs.existsSync(this.output)) {
         fs.mkdirSync(this.output)
