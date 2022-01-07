@@ -56,7 +56,8 @@ export class Repository {
 
   private checkout(workspace: string) {
     const file = path.resolve(this.cache, workspace, '.endpoints.json')
-    execSync(`cd ${this.cache} && git checkout origin/master -- ${file}`)
+    const mainBranch = execSync(`cd ${this.cache}; git rev-parse --abbrev-ref origin/HEAD`).toString().trim()
+    execSync(`cd ${this.cache}; git checkout ${mainBranch} -- ${file}`)
     return JSON.parse(fs.readFileSync(file).toString())
   }
 
