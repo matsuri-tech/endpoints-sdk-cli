@@ -101,7 +101,7 @@ export const endpoint = (name: string, e: Endpoint) => {
         }).join("&");
       const __path = \`\${__root}/\${\`${PATH_TEMPLATE}\`}\`;
       return __queries ? \`\${__path}?\${__queries}\` : __path;
-    }
+    };
   `,
   e.method ? `${name}.method='${e.method}'` : null].filter(Boolean).join('\n')
 }
