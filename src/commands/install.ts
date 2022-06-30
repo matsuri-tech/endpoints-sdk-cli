@@ -15,20 +15,21 @@ export default class Install extends Command {
         throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
 
-      Object.values(config.dependencies).forEach(({repository: path, version, workspaces = ['']}) => {
-        workspaces.forEach(workspace => {
+      for (const {repository: path, version, workspaces = ['']} of Object.values(config.dependencies)) {
+        for (const workspace of workspaces) {
           const repository = new Repository(path)
           repositories.push(repository)
           repository.clone({version, workspace})
           makeFiles({repository, workspace, config})
-        })
-      })
+        }
+      }
     } catch (error) {
+      // @ts-expect-error
       this.error(color.red(error.message))
     } finally {
-      repositories.forEach(repository => {
+      for (const repository of repositories) {
         repository.clean()
-      })
+      }
     }
   }
 }

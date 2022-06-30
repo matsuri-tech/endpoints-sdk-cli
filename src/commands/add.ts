@@ -73,6 +73,7 @@ add service to dependencies & make endpoints files.
 
       this.log(`${color.green('success')}: ${repository.name} updated!`)
     } catch (error) {
+      // @ts-expect-error
       this.error(color.red(error.stack))
     } finally {
       repository.clean()

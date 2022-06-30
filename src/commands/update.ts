@@ -20,12 +20,14 @@ export default class Update extends Command {
       if (!config.dependencies) {
         throw new Error('Dependencies property of the endpoints.config.json does not exist. Use the add command to add dependencies before installing')
       }
+
       if (!(args.service in config.dependencies)) {
         throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.config.json. Or use the add command to add dependencies before installing')
       }
+
       const {repository: path, version, workspaces = ['']} = config.dependencies[args.service]
 
-      workspaces.forEach(workspace => {
+      for (const workspace of workspaces) {
         const repository = new Repository(path)
         repository.clone({version, workspace})
         makeFiles({repository, config, workspace})
@@ -36,14 +38,16 @@ export default class Update extends Command {
           workspace,
         })
         repositories.push(repository)
-      })
+      }
+
       config.publish()
     } catch (error) {
+      // @ts-expect-error
       this.error(color.red(error.message))
     } finally {
-      repositories.forEach(repository => {
+      for (const repository of repositories) {
         repository.clean()
-      })
+      }
     }
   }
 }
