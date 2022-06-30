@@ -4,8 +4,8 @@ import type {Period} from '../../classes/Repository'
 const normalizeName = (n: string) => {
   return n === 'dev' ?
     'development' :
-    n === 'prod' ?
-      'production' : n
+    (n === 'prod' ?
+      'production' : n)
 }
 
 const normalizeUrl = (u: string) => {
