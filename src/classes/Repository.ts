@@ -13,6 +13,7 @@ export interface Env {
 export interface Endpoint{
     path: string;
     desc: string;
+    method?: string;
 }
 
 export interface Api{
