@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 import * as prettier from 'prettier'
 import {unique} from '../utils/unique'
 
@@ -24,12 +24,15 @@ export class Config {
       if (data.dependencies) {
         this.dependencies = data.dependencies
       }
+
       if (data.output) {
         this.output = data.output
       }
+
       if (!fs.existsSync(this.output)) {
         fs.mkdirSync(this.output)
       }
+
       if (data.environment_identifier) {
         this.environment_identifier = data.environment_identifier
       }

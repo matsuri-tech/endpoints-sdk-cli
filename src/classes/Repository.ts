@@ -1,6 +1,6 @@
-import * as path from 'path'
-import {execSync} from 'child_process'
-import * as fs from 'fs'
+import * as path from 'node:path'
+import {execSync} from 'node:child_process'
+import * as fs from 'node:fs'
 import rimraf from 'rimraf'
 
 export interface Env {
@@ -86,9 +86,11 @@ export class Repository {
     ) {
       return str
     }
+
     if (str.startsWith('./')) {
       return path.resolve(str)
     }
+
     return `git@github.com:${str}.git`
   }
 

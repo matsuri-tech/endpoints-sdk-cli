@@ -7,5 +7,6 @@
     "unicorn/filename-case": 0,
     "valid-jsdoc": 0,
     "unicorn/no-abusive-eslint-disable": 0,
+    "node/no-missing-import": 0,
   }
 }

@@ -7,7 +7,7 @@ interface Param {
   type: 'string' | 'number';
 }
 const isNumberLiteral = (str?: string) => {
-  return str && isFinite(Number(str))
+  return str && Number.isFinite(Number(str))
 }
 
 const detectType = (str?: string) => {
