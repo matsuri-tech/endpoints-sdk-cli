@@ -34,7 +34,7 @@ export default class Update extends Command {
         config.push({
           name: repository.name,
           path: repository.path,
-          version: version || repository.hash,
+          version: repository.hash,
           workspace,
         })
         repositories.push(repository)
