@@ -26,10 +26,15 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`mes add [REPOSITORY]`](#mes-add-repository)
-* [`mes help [COMMAND]`](#mes-help-command)
-* [`mes install`](#mes-install)
-* [`mes update [SERVICE]`](#mes-update-service)
+- [matsuri-tech/endpoints-sdk-cli (mes)](#matsuri-techendpoints-sdk-cli-mes)
+- [Usage](#usage)
+- [Commands](#commands)
+  - [`mes add [REPOSITORY]`](#mes-add-repository)
+  - [`mes help [COMMAND]`](#mes-help-command)
+  - [`mes install`](#mes-install)
+  - [`mes update [SERVICE]`](#mes-update-service)
+- [Support of `create-react-app`](#support-of-create-react-app)
+- [Override root url](#override-root-url)
 
 ## `mes add [REPOSITORY]`
 
@@ -122,5 +127,23 @@ _See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sd
 ```json
 {
   "environment_identifier": "process.env.REACT_APP_ENV",
+}
+```
+
+# Override root url
+
+```json
+{
+  "dependencies": {
+    "my-service": {
+      "version": "ba832b61d0319f42b3cbb30c815cbdecfece959a",
+      "repository": "git@github.com:hoge/my-service.git",
+      "roots":{
+        "dev": "https://dev.hoge.com",
+        "prod": "https://hoge.com",
+        "local": "http://localhost:3000"
+      }
+    },
+  }
 }
 ```

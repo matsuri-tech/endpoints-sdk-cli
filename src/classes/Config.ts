@@ -3,11 +3,16 @@ import * as path from 'node:path'
 import * as prettier from 'prettier'
 import {unique} from '../utils/unique'
 
+export interface Roots {
+  [env: string]: string;
+}
+
 export class Config {
   dependencies: {
     [service: string]: {
       version: string;
       repository: string;
+      roots?: Roots;
       workspaces?: string[];
     };
   } = {};
@@ -54,6 +59,7 @@ export class Config {
     this.dependencies = {
       ...this.dependencies,
       [name]: {
+        ...this.dependencies?.[name],
         version,
         repository: path,
         workspaces: workspaces.length > 0 ? workspaces : undefined,
