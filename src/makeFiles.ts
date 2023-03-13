@@ -1,5 +1,5 @@
 import * as path from 'node:path'
-import type {Config} from './classes/Config'
+import type {Config, Roots} from './classes/Config'
 import type {Repository} from './classes/Repository'
 import * as templates from './templates'
 import * as fs from 'node:fs'
@@ -13,14 +13,15 @@ export const makeFiles: (args: {
   repository: Repository;
   workspace?: string;
   config: Config;
-}) => void = ({repository, workspace, config}) => {
+  roots?: Roots;
+}) => void = ({repository, workspace, config, roots}) => {
   const files: {
     basename: string;
     version: string;
   }[] = []
 
   for (const [version, period] of Object.entries(repository.data)) {
-    const content = templates.files.endpoints({repository, version, period, config})
+    const content = templates.files.endpoints({repository, version, period, config, roots})
     const basename = makeName(repository.name, workspace, version)
 
     files.push({version, basename})

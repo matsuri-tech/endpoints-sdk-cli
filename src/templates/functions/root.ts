@@ -12,11 +12,11 @@ const normalizeUrl = (u: string) => {
   return u.endsWith('/') ? u.slice(0, -1) : u
 }
 
-export const root: (args: {
-  period: Period;
+export const root  = ({env, config}: {
+  env: Period['env'];
   config: Config;
-}) => void = ({period, config}) => {
-  const content = Object.entries(period.env).map(([n, u]) => {
+}) => {
+  const content = Object.entries(env).map(([n, u]) => {
     return `
       if(${config.environment_identifier}==="${normalizeName(n)}"){
         __root = '${normalizeUrl(u)}'

@@ -1,4 +1,4 @@
-import type {Config} from '../../classes/Config'
+import type {Config,  Roots} from '../../classes/Config'
 import type {Repository, Period} from '../../classes/Repository'
 import * as templates from '../functions'
 import {camelCase} from '../../utils/camelCase'
@@ -8,11 +8,13 @@ export const endpoints = ({
   version,
   period,
   config,
+  roots,
 }: {
     repository: Repository;
     version: string;
     period: Period;
     config: Config;
+    roots?: Roots;
   }): string => {
   const names: string[] = []
   const fns = Object.entries(period.api).map(([_name, endpoint]) => {
@@ -23,9 +25,14 @@ export const endpoints = ({
   const exportFns = `export const ${camelCase(repository.name)}_${camelCase(
     version,
   )} = {${names.join(',')}}`
+
+  const env = {
+    ...period.env,
+    ...roots,
+  }
   return [
     '/* eslint-disable */',
-    templates.root({period, config}),
+    templates.root({env, config}),
     ...fns,
     exportFns,
   ].join('')
