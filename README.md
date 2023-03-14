@@ -9,6 +9,7 @@ Endpoints SDK for JavaScript
 * [Usage](#usage)
 * [Commands](#commands)
 * [Support of `create-react-app`](#support-of-create-react-app)
+* [Override root url](#override-root-url)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -17,7 +18,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/2.3.3 darwin-x64 node-v16.16.0
+endpoints-sdk-cli/2.4.0 darwin-arm64 node-v16.17.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND
@@ -26,15 +27,10 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [matsuri-tech/endpoints-sdk-cli (mes)](#matsuri-techendpoints-sdk-cli-mes)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [`mes add [REPOSITORY]`](#mes-add-repository)
-  - [`mes help [COMMAND]`](#mes-help-command)
-  - [`mes install`](#mes-install)
-  - [`mes update [SERVICE]`](#mes-update-service)
-- [Support of `create-react-app`](#support-of-create-react-app)
-- [Override root url](#override-root-url)
+* [`mes add [REPOSITORY]`](#mes-add-repository)
+* [`mes help [COMMAND]`](#mes-help-command)
+* [`mes install`](#mes-install)
+* [`mes update [SERVICE]`](#mes-update-service)
 
 ## `mes add [REPOSITORY]`
 
@@ -79,7 +75,7 @@ EXAMPLES
   $ mes add https://github.com/[username/repository].git
 ```
 
-_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.3.3/src/commands/add.ts)_
+_See code: [src/commands/add.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.4.0/src/commands/add.ts)_
 
 ## `mes help [COMMAND]`
 
@@ -107,7 +103,7 @@ USAGE
   $ mes install
 ```
 
-_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.3.3/src/commands/install.ts)_
+_See code: [src/commands/install.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.4.0/src/commands/install.ts)_
 
 ## `mes update [SERVICE]`
 
@@ -118,7 +114,7 @@ USAGE
   $ mes update [SERVICE]
 ```
 
-_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.3.3/src/commands/update.ts)_
+_See code: [src/commands/update.ts](https://github.com/matsuri-tech/endpoints-sdk-cli/blob/v2.4.0/src/commands/update.ts)_
 <!-- commandsstop -->
 
 
