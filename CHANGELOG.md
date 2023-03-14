@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.3.3...v2.4.0) (2023-03-14)
+
+
+### Features
+
+* add schema.json ([ae13ff4](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/ae13ff4887f324da7484d1802eaee9382d8372e3))
+* make root urls overwritable ([4510ce7](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/4510ce74707fc7044b6d41d1ee0c0fa0fb4b6e06))
+
 ## [2.2.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.1.3...v2.2.0) (2022-01-10)
 
 
