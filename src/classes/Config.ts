@@ -7,15 +7,27 @@ export interface Roots {
   [env: string]: string;
 }
 
+interface Dependencies {
+  [service: string]: {
+    version: string;
+    repository: string;
+    roots?: Roots;
+    workspaces?: string[];
+  };
+}
+
+interface ConfigData {
+  $shema: string;
+  dependencies: Dependencies;
+  path: string;
+  output: string;
+  environment_identifier: string;
+}
+
 export class Config {
-  dependencies: {
-    [service: string]: {
-      version: string;
-      repository: string;
-      roots?: Roots;
-      workspaces?: string[];
-    };
-  } = {};
+  data: Partial<ConfigData> = {}
+
+  dependencies: Dependencies = {};
 
   path = 'endpoints.config.json';
 
@@ -25,7 +37,8 @@ export class Config {
 
   constructor() {
     if (fs.existsSync(this.path)) {
-      const data: Config = JSON.parse(fs.readFileSync(this.path).toString())
+      const data: ConfigData = JSON.parse(fs.readFileSync(this.path).toString())
+      this.data = data
       if (data.dependencies) {
         this.dependencies = data.dependencies
       }
@@ -69,6 +82,7 @@ export class Config {
 
   publish() {
     const data = {
+      ...this.data,
       output: this.output,
       environment_identifier: this.environment_identifier,
       dependencies: this.dependencies,
