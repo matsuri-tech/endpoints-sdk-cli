@@ -10,22 +10,33 @@ export interface Env {
   [key: string]: string;
 }
 
-export interface Endpoint{
-    path: string;
-    desc: string;
-    method?: string;
+export type AuthSchema =
+  | {
+      type: 'Bearer' | 'Basic';
+      header: 'Authorization';
+    }
+  | {
+      type: 'ApiKey';
+      header: 'X-Access-Token';
+    };
+
+export interface Endpoint {
+  path: string;
+  desc: string;
+  method?: string;
+  authSchema?: AuthSchema;
 }
 
-export interface Api{
+export interface Api {
   [endpoint: string]: Endpoint;
 }
 
-export interface Period{
+export interface Period {
   env: Env;
   api: Api;
 }
 
-export interface Data{
+export interface Data {
   [version: string]: Period;
 }
 
@@ -57,7 +68,11 @@ export class Repository {
 
   private checkout(workspace: string) {
     const file = path.resolve(this.cache, workspace, '.endpoints.json')
-    const mainBranch = execSync(`cd ${this.cache}; git rev-parse --abbrev-ref origin/HEAD`).toString().trim()
+    const mainBranch = execSync(
+      `cd ${this.cache}; git rev-parse --abbrev-ref origin/HEAD`,
+    )
+    .toString()
+    .trim()
     execSync(`cd ${this.cache}; git checkout ${mainBranch} -- ${file}`)
     return JSON.parse(fs.readFileSync(file).toString())
   }
