@@ -103,5 +103,6 @@ export const endpoint = (name: string, e: Endpoint) => {
       return __queries ? \`\${__path}?\${__queries}\` : __path;
     };
   `,
-  e.method ? `${name}.method='${e.method}' as const;` : null].filter(Boolean).join('\n')
+  e.method ? `${name}.method='${e.method}' as const;` : null,
+  e.authSchema ? `${name}.authSchema=${JSON.stringify(e.authSchema)} as const;` : null].filter(Boolean).join('\n')
 }
