@@ -43,6 +43,7 @@ USAGE
 OPTIONS
   -v, --version=version      latest or commit hash
   -w, --workspace=workspace  a path to workspace containing .endpoints.json
+  -b, --branch=branch  .endpoints.jsonを更新したいブランチ名を指定します。デフォルトはmasterです。
 
 DESCRIPTION
   add service to dependencies & make endpoints files.
