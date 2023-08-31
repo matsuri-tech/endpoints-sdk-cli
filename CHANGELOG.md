@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.5.0...v2.5.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* refer roots in update command ([279c2f5](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/279c2f5d5753ba597abf667c5a7a76a941e7a9d4))
+
 ## [2.5.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.4.1...v2.5.0) (2023-03-28)
 
 
