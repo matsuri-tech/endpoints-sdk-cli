@@ -13,6 +13,7 @@ interface Dependencies {
     repository: string;
     roots?: Roots;
     workspaces?: string[];
+    branch?: string;
   };
 }
 
@@ -57,11 +58,12 @@ export class Config {
     }
   }
 
-  push({name, path, version, workspace}: {
+  push({name, path, version, workspace, branch}: {
       name: string;
       path: string;
       version: string;
       workspace?: string;
+      branch: string | undefined;
     },
   ) {
     const workspaces = unique([
@@ -75,6 +77,7 @@ export class Config {
         ...this.dependencies?.[name],
         version,
         repository: path,
+        branch,
         workspaces: workspaces.length > 0 ? workspaces : undefined,
       },
     }

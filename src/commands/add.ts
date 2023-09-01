@@ -32,6 +32,7 @@ add service to dependencies & make endpoints files.
       char: 'w',
       description: 'a path to workspace containing .endpoints.json',
     }),
+    branch: flags.string({char: 'b', description: 'branch name to clone'}),
   };
 
   static examples = [
@@ -41,6 +42,8 @@ add service to dependencies & make endpoints files.
     '$ mes add [username/repository] -v latest',
     '$ mes add [username/repository] --workspace [workspace directory]',
     '$ mes add [username/repository] -w [workspace directory]',
+    '$ mes add [username/repository] --branch [branch name]',
+    '$ mes add [username/repository] -b [branch name]',
     '$ mes add /Users/.../local-repository/',
     '$ mes add ./local-repository',
     '$ mes add git@github.com:[username/repository].git',
@@ -48,15 +51,15 @@ add service to dependencies & make endpoints files.
   ];
 
   async run() {
-    const {flags: {version, workspace}, args} = this.parse<
-      { version?: string; workspace?: string },
+    const {flags: {version, workspace, branch}, args} = this.parse<
+      { version?: string; workspace?: string ; branch?: string },
       { repository: string }
     >(Add)
 
     const repository = new Repository(args.repository)
 
     try {
-      repository.clone({version, workspace})
+      repository.clone({version, workspace, branch})
 
       const config = new Config()
 
@@ -67,6 +70,7 @@ add service to dependencies & make endpoints files.
         path: repository.path,
         version: version || repository.hash,
         workspace,
+        branch,
       })
 
       config.publish()
