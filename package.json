@@ -1,7 +1,7 @@
 {
   "name": "endpoints-sdk-cli",
   "description": "endpoints sdk cli",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "author": "hrdtbs",
   "bin": {
     "mes": "./bin/run"
