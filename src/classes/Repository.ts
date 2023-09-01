@@ -59,21 +59,23 @@ export class Repository {
     )
   }
 
-  clone({version, workspace = ''}: { version?: string; workspace?: string }) {
+  clone({version, workspace = '', branch}: { version?: string; workspace?: string ; branch: string | undefined }) {
     execSync(`git clone --no-checkout --quiet ${this.path} ${this.cache}`)
     this.reset(version)
     this.hash = this.revParse()
-    this.data = this.checkout(workspace)
+    this.data = this.checkout(workspace, branch)
   }
 
-  private checkout(workspace: string) {
+  private checkout(workspace: string, branch: string | undefined) {
     const file = path.resolve(this.cache, workspace, '.endpoints.json')
-    const mainBranch = execSync(
+
+
+    const targetBranch = branch ?? execSync(
       `cd ${this.cache}; git rev-parse --abbrev-ref origin/HEAD`,
     )
     .toString()
     .trim()
-    execSync(`cd ${this.cache}; git checkout ${mainBranch} -- ${file}`)
+    execSync(`cd ${this.cache}; git checkout ${targetBranch} -- ${file}`)
     return JSON.parse(fs.readFileSync(file).toString())
   }
 
