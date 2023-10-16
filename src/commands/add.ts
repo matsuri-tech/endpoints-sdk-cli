@@ -33,6 +33,11 @@ add service to dependencies & make endpoints files.
       description: 'a path to workspace containing .endpoints.json',
     }),
     branch: flags.string({char: 'b', description: 'branch name to clone'}),
+    excludes: flags.string({
+      char: 'e',
+      description: 'exclude periods',
+      multiple: true,
+    }),
   };
 
   static examples = [
@@ -44,6 +49,9 @@ add service to dependencies & make endpoints files.
     '$ mes add [username/repository] -w [workspace directory]',
     '$ mes add [username/repository] --branch [branch name]',
     '$ mes add [username/repository] -b [branch name]',
+    '$ mes add [username/repository] --excludes [period name]',
+    '$ mes add [username/repository] -e [period name]',
+    '$ mes add [username/repository] -e [period name] [period name]',
     '$ mes add /Users/.../local-repository/',
     '$ mes add ./local-repository',
     '$ mes add git@github.com:[username/repository].git',
@@ -51,8 +59,8 @@ add service to dependencies & make endpoints files.
   ];
 
   async run() {
-    const {flags: {version, workspace, branch}, args} = this.parse<
-      { version?: string; workspace?: string ; branch?: string },
+    const {flags: {version, workspace, branch, excludes}, args} = this.parse<
+      { version?: string; workspace?: string ; branch?: string; excludes?: string[] },
       { repository: string }
     >(Add)
 
@@ -63,7 +71,7 @@ add service to dependencies & make endpoints files.
 
       const config = new Config()
 
-      makeFiles({repository, config, workspace})
+      makeFiles({repository, config, workspace, exclude_periods: excludes})
 
       config.push({
         name: repository.name,
@@ -71,6 +79,7 @@ add service to dependencies & make endpoints files.
         version: version || repository.hash,
         workspace,
         branch,
+        exclude_periods: excludes,
       })
 
       config.publish()

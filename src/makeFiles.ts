@@ -14,13 +14,18 @@ export const makeFiles: (args: {
   workspace?: string;
   config: Config;
   roots?: Roots;
-}) => void = ({repository, workspace, config, roots}) => {
+  exclude_periods?: string[];
+}) => void = ({repository, workspace, config, roots, exclude_periods}) => {
   const files: {
     basename: string;
     version: string;
   }[] = []
 
   for (const [version, period] of Object.entries(repository.data)) {
+    if (exclude_periods?.includes(version)) {
+      continue
+    }
+
     const content = templates.files.endpoints({repository, version, period, config, roots})
     const basename = makeName(repository.name, workspace, version)
 
