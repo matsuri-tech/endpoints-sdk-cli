@@ -44,6 +44,13 @@
             "items": {
               "type": "string"
             }
+          },
+          "exclude_periods":{
+            "type": "array",
+            "title": "Exclude periods",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
