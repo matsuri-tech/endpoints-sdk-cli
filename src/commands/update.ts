@@ -25,18 +25,19 @@ export default class Update extends Command {
         throw new Error('The service does not exist in the dependency. Check dependencies property of the endpoints.config.json. Or use the add command to add dependencies before installing')
       }
 
-      const {repository: path, version, workspaces = [''], roots, branch} = config.dependencies[args.service]
+      const {repository: path, version, workspaces = [''], roots, branch, exclude_periods} = config.dependencies[args.service]
 
       for (const workspace of workspaces) {
         const repository = new Repository(path)
         repository.clone({version, workspace, branch})
-        makeFiles({repository, config, workspace, roots})
+        makeFiles({repository, config, workspace, roots, exclude_periods})
         config.push({
           name: repository.name,
           path: repository.path,
           version: repository.hash,
           workspace,
           branch,
+          exclude_periods,
         })
         repositories.push(repository)
       }
