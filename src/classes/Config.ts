@@ -14,6 +14,7 @@ interface Dependencies {
     roots?: Roots;
     workspaces?: string[];
     branch?: string;
+    exclude_periods?: string[];
   };
 }
 
