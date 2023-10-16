@@ -59,12 +59,13 @@ export class Config {
     }
   }
 
-  push({name, path, version, workspace, branch}: {
+  push({name, path, version, workspace, branch, exclude_periods}: {
       name: string;
       path: string;
       version: string;
       workspace?: string;
       branch: string | undefined;
+      exclude_periods: string[] | undefined;
     },
   ) {
     const workspaces = unique([
@@ -79,6 +80,7 @@ export class Config {
         version,
         repository: path,
         branch,
+        exclude_periods,
         workspaces: workspaces.length > 0 ? workspaces : undefined,
       },
     }
