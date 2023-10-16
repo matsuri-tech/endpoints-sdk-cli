@@ -18,7 +18,7 @@ $ npm install -g endpoints-sdk-cli
 $ mes COMMAND
 running command...
 $ mes (-v|--version|version)
-endpoints-sdk-cli/2.6.0 darwin-x64 node-v18.17.1
+endpoints-sdk-cli/2.6.0 darwin-x64 node-v18.18.0
 $ mes --help [COMMAND]
 USAGE
   $ mes COMMAND
@@ -42,6 +42,7 @@ USAGE
 
 OPTIONS
   -b, --branch=branch        branch name to clone
+  -e, --excludes=excludes    exclude periods
   -v, --version=version      latest or commit hash
   -w, --workspace=workspace  a path to workspace containing .endpoints.json
 
@@ -72,6 +73,9 @@ EXAMPLES
   $ mes add [username/repository] -w [workspace directory]
   $ mes add [username/repository] --branch [branch name]
   $ mes add [username/repository] -b [branch name]
+  $ mes add [username/repository] --excludes [period name]
+  $ mes add [username/repository] -e [period name]
+  $ mes add [username/repository] -e [period name] [period name]
   $ mes add /Users/.../local-repository/
   $ mes add ./local-repository
   $ mes add git@github.com:[username/repository].git

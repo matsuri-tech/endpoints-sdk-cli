@@ -51,7 +51,7 @@ add service to dependencies & make endpoints files.
     '$ mes add [username/repository] -b [branch name]',
     '$ mes add [username/repository] --excludes [period name]',
     '$ mes add [username/repository] -e [period name]',
-    '$ mes add [username/repository] -e [period name] -e [period name]',
+    '$ mes add [username/repository] -e [period name] [period name]',
     '$ mes add /Users/.../local-repository/',
     '$ mes add ./local-repository',
     '$ mes add git@github.com:[username/repository].git',
