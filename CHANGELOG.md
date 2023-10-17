@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.6.0...v2.7.0) (2023-10-17)
+
+
+### Features
+
+* automatically complete $schema ([4accdce](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/4accdce3ad7e3051581aec2ca1949be1f4261507))
+* **commands/add:** support exclude_periods ([68c5875](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/68c587539ca0c2d04c23908f50191459fe18c62e))
+* **commands/install:** support exclude_periods ([508e0d5](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/508e0d51bab66a9fee960146fb8a6c5b571314f4))
+* **commands/update:** support exclude_periods ([331adbd](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/331adbd0b1e5203cc7451c3ed2d15caff8e41c05))
+* **Config:** update Dependencies type ([93dfc25](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/93dfc257b84d243050fee76ca568b127c52046d4))
+* **Config:** update push method ([1cb0a2f](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/1cb0a2f1f334ec41c9c69162c6926d89f2fe42c1))
+* **makeFile:** allow specific periods to be excluded ([b719be3](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b719be3e83227819d7e9ff6ef97532c4428b0370))
+* move schema.json to docs dir ([b8044ce](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/b8044cee5656122e9194eed07a7baed34727117a))
+* update schema.json ([274b35e](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/274b35e589ed7af84cad6312dc5541866cb87cec))
+
 ## [2.6.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.5.1...v2.6.0) (2023-09-01)
 
 
