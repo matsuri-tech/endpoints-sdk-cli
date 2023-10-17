@@ -89,6 +89,7 @@ export class Config {
   publish() {
     const data = {
       ...this.data,
+      $schema: 'https://matsuri-tech.github.io/endpoints-sdk-cli/schema.json',
       output: this.output,
       environment_identifier: this.environment_identifier,
       dependencies: this.dependencies,
