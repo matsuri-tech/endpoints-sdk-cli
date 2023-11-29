@@ -3,7 +3,7 @@ import type {Repository, Period} from '../../classes/Repository'
 import * as templates from '../functions'
 import {camelCase} from '../../utils/camelCase'
 
-export const endpoints = ({
+export const endpoints = async ({
   repository,
   version,
   period,
@@ -15,13 +15,13 @@ export const endpoints = ({
     period: Period;
     config: Config;
     roots?: Roots;
-  }): string => {
+  }): Promise<string> => {
   const names: string[] = []
-  const fns = Object.entries(period.api).map(([_name, endpoint]) => {
+  const fns = await Promise.all(Object.entries(period.api).map(([_name, endpoint]) => {
     const name = camelCase(_name)
     names.push(name)
     return templates.endpoint(name, endpoint)
-  })
+  }))
   const exportFns = `export const ${camelCase(repository.name)}_${camelCase(
     version,
   )} = {${names.join(',')}}`
