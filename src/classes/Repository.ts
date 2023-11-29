@@ -2,6 +2,7 @@ import * as path from 'node:path'
 import {execSync} from 'node:child_process'
 import * as fs from 'node:fs'
 import rimraf from 'rimraf'
+import jsonSchemaRefParser from '@apidevtools/json-schema-ref-parser'
 
 export interface Env {
   local: string;
@@ -25,6 +26,8 @@ export interface Endpoint {
   desc: string;
   method?: string;
   authSchema?: AuthSchema;
+  request?: null | Record<string, unknown>;
+  response?: null | Record<string, unknown>;
 }
 
 export interface Api {
@@ -59,14 +62,14 @@ export class Repository {
     )
   }
 
-  clone({version, workspace = '', branch}: { version?: string; workspace?: string ; branch: string | undefined }) {
+  async clone({version, workspace = '', branch}: { version?: string; workspace?: string ; branch: string | undefined }) {
     execSync(`git clone --no-checkout --quiet ${this.path} ${this.cache}`)
     this.reset(version)
     this.hash = this.revParse()
-    this.data = this.checkout(workspace, branch)
+    this.data = await this.checkout(workspace, branch)
   }
 
-  private checkout(workspace: string, branch: string | undefined) {
+  private async checkout(workspace: string, branch: string | undefined) {
     const file = path.resolve(this.cache, workspace, '.endpoints.json')
 
     const targetBranch = branch ? `origin/${branch}` : execSync(
@@ -75,7 +78,12 @@ export class Repository {
     .toString()
     .trim()
     execSync(`cd ${this.cache}; git checkout ${targetBranch} -- ${file}`)
-    return JSON.parse(fs.readFileSync(file).toString())
+
+    const schema = (await jsonSchemaRefParser.dereference(JSON.parse(fs.readFileSync(file).toString()))) as Data
+
+    delete schema.$defs
+
+    return schema as Data
   }
 
   private revParse() {

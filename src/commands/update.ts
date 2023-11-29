@@ -27,10 +27,10 @@ export default class Update extends Command {
 
       const {repository: path, version, workspaces = [''], roots, branch, exclude_periods} = config.dependencies[args.service]
 
-      for (const workspace of workspaces) {
+      await Promise.all(workspaces.map(async workspace => {
         const repository = new Repository(path)
-        repository.clone({version, workspace, branch})
-        makeFiles({repository, config, workspace, roots, exclude_periods})
+        await repository.clone({version, workspace, branch})
+        await makeFiles({repository, config, workspace, roots, exclude_periods})
         config.push({
           name: repository.name,
           path: repository.path,
@@ -40,7 +40,7 @@ export default class Update extends Command {
           exclude_periods,
         })
         repositories.push(repository)
-      }
+      }))
 
       config.publish()
     } catch (error) {

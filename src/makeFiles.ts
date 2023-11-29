@@ -9,30 +9,30 @@ const makeName = (...args: (string|undefined)[]) => {
   return args.filter(e => Boolean(e)).join('.')
 }
 
-export const makeFiles: (args: {
+export const makeFiles = async ({repository, workspace, config, roots, exclude_periods}: {
   repository: Repository;
   workspace?: string;
   config: Config;
   roots?: Roots;
   exclude_periods?: string[];
-}) => void = ({repository, workspace, config, roots, exclude_periods}) => {
+}) => {
   const files: {
     basename: string;
     version: string;
   }[] = []
 
-  for (const [version, period] of Object.entries(repository.data)) {
+  await Promise.all(Object.entries(repository.data).map(async ([version, period]) => {
     if (exclude_periods?.includes(version)) {
-      continue
+      return
     }
 
-    const content = templates.files.endpoints({repository, version, period, config, roots})
+    const content = await templates.files.endpoints({repository, version, period, config, roots})
     const basename = makeName(repository.name, workspace, version)
 
     files.push({version, basename})
 
     fs.writeFileSync(path.resolve(config.output, `${basename}.ts`), format(content))
-  }
+  }))
 
   fs.writeFileSync(
     path.resolve(config.output, `${makeName(repository.name, workspace)}.ts`),

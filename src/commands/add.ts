@@ -67,11 +67,11 @@ add service to dependencies & make endpoints files.
     const repository = new Repository(args.repository)
 
     try {
-      repository.clone({version, workspace, branch})
+      await repository.clone({version, workspace, branch})
 
       const config = new Config()
 
-      makeFiles({repository, config, workspace, exclude_periods: excludes})
+      await makeFiles({repository, config, workspace, exclude_periods: excludes})
 
       config.push({
         name: repository.name,
