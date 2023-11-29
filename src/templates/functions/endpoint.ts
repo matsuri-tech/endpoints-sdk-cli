@@ -1,5 +1,6 @@
 import type {Endpoint} from '../../classes/Repository'
 import {unique} from '../../utils/unique'
+import {compile} from 'json-schema-to-typescript'
 
 interface Param {
   name: string;
@@ -67,7 +68,7 @@ const makePathTemplate = (p: string) => {
   return t.startsWith('/') ? t.slice(1) : t
 }
 
-export const endpoint = (name: string, e: Endpoint) => {
+export const endpoint = async (name: string, e: Endpoint) => {
   const [path, queryParamsStr] = e.path.split('?')
 
   const queryParams = makeQueryParams(queryParamsStr)
@@ -85,8 +86,13 @@ export const endpoint = (name: string, e: Endpoint) => {
 
   const PATH_TEMPLATE = makePathTemplate(path)
 
-  return [`
-    /**
+  const request = e.request ? await compile(e.request, `${name}Request`) : undefined
+  const response = e.response ? await compile(e.response, `${name}Response`) : undefined
+
+  return [
+    request,
+    response,
+    `/**
      * ${e.desc}
      ${QUERY_PARAMS_COMMENTS}
      */
@@ -103,6 +109,7 @@ export const endpoint = (name: string, e: Endpoint) => {
       return __queries ? \`\${__path}?\${__queries}\` : __path;
     };
   `,
-  e.method ? `${name}.method='${e.method}' as const;` : null,
-  e.authSchema ? `${name}.authSchema=${JSON.stringify(e.authSchema)} as const;` : null].filter(Boolean).join('\n')
+    e.method ? `${name}.method='${e.method}' as const;` : null,
+    e.authSchema ? `${name}.authSchema=${JSON.stringify(e.authSchema)} as const;` : null,
+  ].filter(Boolean).join('\n')
 }
