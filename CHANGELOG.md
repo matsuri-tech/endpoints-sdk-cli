@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.8.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.7.0...v2.8.0) (2023-12-05)
+
+
+### Features
+
+* generate response & request types ([c286289](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/c286289c188a2a45f4c536f697cb2d049681d517))
+* parse refs of json schema ([e4f633e](https://github.com/matsuri-tech/endpoints-sdk-cli/commit/e4f633e56e198bff21fb287312b078ffe38880d8))
+
 ## [2.7.0](https://github.com/matsuri-tech/endpoints-sdk-cli/compare/v2.6.0...v2.7.0) (2023-10-17)
 
 
