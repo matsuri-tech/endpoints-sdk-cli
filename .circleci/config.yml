@@ -27,11 +27,11 @@ jobs:
   node-12:
     <<: *test
     docker:
-      - image: node:12
+      - image: node:12.22.12
   node-10:
     <<: *test
     docker:
-      - image: node:10
+      - image: node:10.24.1
   cache:
     <<: *test
     steps:
