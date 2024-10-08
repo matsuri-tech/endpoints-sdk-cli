@@ -1,5 +1,6 @@
 {
   "name": "endpoints-sdk-cli",
+  "author": "hrdtbs",
   "version": "3.0.0",
   "main": "binary.js",
   "scripts": {

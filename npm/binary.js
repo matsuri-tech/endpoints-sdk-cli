@@ -29,10 +29,11 @@ const getPlatform = () => {
 
 const getBinary = () => {
   const platform = getPlatform();
-  const version = require("./package.json").version;
-  const author = "hrdtbs";
-  const name = "literate-disco";
-  const url = `https://github.com/${author}/${name}/releases/download/v${version}/${name}-v${version}-${platform}.tar.gz`;
+  const pkg = require("./package.json");
+  const version = pkg.version;
+  const org = "matsuri-tech";
+  const name = pkg.name;
+  const url = `https://github.com/${org}/${name}/releases/download/v${version}/${name}-v${version}-${platform}.tar.gz`;
   return new Binary(
     platform === windows ? "literate-disco.exe" : "literate-disco",
     url
