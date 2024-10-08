@@ -1,4 +1,5 @@
 use crate::model::endpoint::EnvList;
+use std::collections::HashMap;
 
 fn normalize_name(n: &str) -> &str {
     match n {
