@@ -3,6 +3,10 @@ name: Rust
 on:
   push:
     branches: [v3, master]
+    files:
+      - "src/**/*.rs"
+      - "Cargo.toml"
+      - "Cargo.lock"
   pull_request:
     branches: [v3, master]
 
