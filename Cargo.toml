@@ -1,5 +1,5 @@
 [package]
-name = "literate-disco"
+name = "endpoints-sdk-cli"
 version = "0.1.0"
 authors = ["hrdtbs <harada.tsubasa.0422@gmail.com>"]
 edition = "2021"
