@@ -1,6 +1,6 @@
 {
-  "name": "literate-disco",
-  "version": "0.0.0",
+  "name": "endpoints-sdk-cli",
+  "version": "3.0.0",
   "main": "binary.js",
   "scripts": {
     "postinstall": "node ./install.js"
