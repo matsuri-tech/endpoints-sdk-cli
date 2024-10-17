@@ -1,0 +1,43 @@
+{
+  "name": "literate-disco",
+  "version": "0.0.0",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "mes": "bin.js"
+  },
+  "files": [
+    "bin.js",
+    "index.js",
+    "index.d.ts"
+  ],
+  "napi": {
+    "name": "literate-disco",
+    "triples": {
+      "defaults": false,
+      "additional": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-musl",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-msvc",
+        "x86_64-unknown-linux-musl"
+      ]
+    }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "universal": "napi universal",
+    "version": "napi version"
+  },
+  "packageManager": "yarn@4.5.0"
+}
