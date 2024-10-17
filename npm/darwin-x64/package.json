@@ -1,5 +1,5 @@
 {
-  "name": "literate-disco-darwin-x64",
+  "name": "@mes/cli-darwin-x64",
   "version": "0.0.0",
   "os": [
     "darwin"
@@ -7,12 +7,12 @@
   "cpu": [
     "x64"
   ],
-  "main": "literate-disco.darwin-x64.node",
+  "main": "cli.darwin-x64.node",
   "files": [
-    "literate-disco.darwin-x64.node"
+    "cli.darwin-x64.node"
   ],
   "license": "MIT",
   "engines": {
-    "node": ">= 10"
+    "node": ">= 18"
   }
 }

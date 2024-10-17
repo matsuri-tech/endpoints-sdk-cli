@@ -1,5 +1,5 @@
 {
-  "name": "literate-disco-win32-x64-msvc",
+  "name": "@mes/cli-win32-x64-msvc",
   "version": "0.0.0",
   "os": [
     "win32"
@@ -7,12 +7,12 @@
   "cpu": [
     "x64"
   ],
-  "main": "literate-disco.win32-x64-msvc.node",
+  "main": "cli.win32-x64-msvc.node",
   "files": [
-    "literate-disco.win32-x64-msvc.node"
+    "cli.win32-x64-msvc.node"
   ],
   "license": "MIT",
   "engines": {
-    "node": ">= 10"
+    "node": ">= 18"
   }
 }

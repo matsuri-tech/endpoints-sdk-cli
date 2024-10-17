@@ -1,3 +1,3 @@
-# `literate-disco-win32-x64-msvc`
+# `@mes/cli-win32-x64-msvc`
 
-This is the **x86_64-pc-windows-msvc** binary for `literate-disco`
+This is the **x86_64-pc-windows-msvc** binary for `@mes/cli`

@@ -1,3 +1,3 @@
-# `literate-disco-darwin-arm64`
+# `@mes/cli-darwin-arm64`
 
-This is the **aarch64-apple-darwin** binary for `literate-disco`
+This is the **aarch64-apple-darwin** binary for `@mes/cli`
