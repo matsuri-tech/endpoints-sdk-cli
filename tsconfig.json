@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "importHelpers": true,
-    "module": "commonjs",
-    "outDir": "lib",
     "rootDir": "src",
-    "strict": true,
-    "target": "es2017"
-  },
-  "include": [
-    "src/**/*"
-  ]
+    "outDir": "dist",
+    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "ESNext" /* Specify what module code is generated. */,
+    "resolveJsonModule": true /* Enable importing .json files. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "strict": true /* Enable all strict type-checking options. */,
+    "moduleResolution": "node" /* Specify module resolution strategy. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  }
 }

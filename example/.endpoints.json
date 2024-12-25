@@ -1,0 +1,134 @@
+{
+  "v1": {
+    "env": {
+      "local": "http://localhost:8080",
+      "dev": "https://dev.ohirunewani.com",
+      "prod": "https://prod.ohirunewani.com"
+    },
+    "api": {
+      "healthCheck": {
+        "path": "health_check",
+        "desc": "ヘルスチェック",
+        "method": "GET",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": null,
+        "response": null
+      },
+      "getUsers": {
+        "path": "users",
+        "desc": "ユーザー一覧取得",
+        "method": "GET",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": null,
+        "response": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "createUser": {
+        "path": "users",
+        "desc": "ユーザー作成",
+        "method": "POST",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "updateUser": {
+        "path": "users/{id}",
+        "desc": "ユーザー更新",
+        "method": "PUT",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "response": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "deleteUser": {
+        "path": "users/{id}",
+        "desc": "ユーザー削除",
+        "method": "DELETE",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": null,
+        "response": null
+      },
+      "getUser": {
+        "path": "users/{id}",
+        "desc": "ユーザー取得",
+        "method": "GET",
+        "authSchema": {
+          "type": "",
+          "header": ""
+        },
+        "request": null,
+        "response": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
