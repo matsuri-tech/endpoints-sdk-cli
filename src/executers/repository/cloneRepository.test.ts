@@ -3,7 +3,7 @@ import { cloneRepository } from "./cloneRepository";
 
 describe("cloneRepository", () => {
   it("should clone the repository and return the cache path", () => {
-    const sshPath = "https://github.com/hrdtbs/crispy-fishstick.git";
+    const sshPath = "https://github.com/matsuri-tech/endpoints-sdk-cli.git";
     vi.useFakeTimers();
     const cachePath = `node_modules/.endpoints-tmp/${new Date().getTime()}`;
 
