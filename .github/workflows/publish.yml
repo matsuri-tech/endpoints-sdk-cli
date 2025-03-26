@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
     paths:
-      - "packages/m2m-components/package.json"
+      - "package.json"
 
 jobs:
   build:
