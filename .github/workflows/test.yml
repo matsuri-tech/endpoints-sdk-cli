@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: package.json
-      - uses: matsuri-tech/matsuri-workflows/.github/actions/pnpm-install@main
+      - uses: ./.github/actions/pnpm-install
       - name: Lint
         run: pnpm lint
       - name: Typecheck
