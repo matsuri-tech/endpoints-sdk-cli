@@ -76,7 +76,7 @@ export async function createEndpoint(
  * ${description}
  * ${queryParamsComment}
  */
-export const ${name} = (${hasPrameters ? `{${parameters}}: {${parameterTypes}}`: ``}) => {
+export const ${name} = (${hasPrameters ? `{${parameters}}: {${parameterTypes}}` : ``}) => {
     const __root = root();
     const __queries = Object.entries({${queryParamNamesStr}})
         .filter(([_, value]) => value !== undefined)

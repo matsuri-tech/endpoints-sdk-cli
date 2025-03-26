@@ -9,8 +9,10 @@ export const createIndexContent = (
 ) => {
   const [indexImports, indexExportNames] = filesMetadata.reduce(
     (acc, { version, filepath }) => {
-      const filepathWithoutExt = filepath.replace(/\.ts$/, '');
-      acc[0].push(`import * as ${toCamelCase(version)} from './${filepathWithoutExt}';`);
+      const filepathWithoutExt = filepath.replace(/\.ts$/, "");
+      acc[0].push(
+        `import * as ${toCamelCase(version)} from './${filepathWithoutExt}';`,
+      );
       acc[1].push(toCamelCase(version));
       return acc;
     },

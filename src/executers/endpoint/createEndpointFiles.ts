@@ -69,7 +69,7 @@ export async function createEndpointFiles(
     createIndexContent(repositoryAlias, filesMetadata),
   );
   console.info(`generate endpoint files done!`);
-  
+
   return {
     ...service,
     version: commitHash,
