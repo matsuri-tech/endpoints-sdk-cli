@@ -9,4 +9,9 @@ export default [
   configs.javascript,
   configs.typescript,
   configs.test,
+  {
+    rules: {
+      "no-console": "off",
+    },
+  },
 ];

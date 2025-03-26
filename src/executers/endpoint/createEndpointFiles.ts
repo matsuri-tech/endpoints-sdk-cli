@@ -31,6 +31,7 @@ export async function createEndpointFiles(
 
   const filesMetadata = [];
 
+  console.info(`generate endpoint files...`);
   for (const [version, period] of Object.entries(repositoryData)) {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (service.exclude_periods?.includes(version)) {
@@ -67,7 +68,8 @@ export async function createEndpointFiles(
     getEndpointFilepath(repositoryAlias, undefined, undefined, true),
     createIndexContent(repositoryAlias, filesMetadata),
   );
-
+  console.info(`generate endpoint files done!`);
+  
   return {
     ...service,
     version: commitHash,

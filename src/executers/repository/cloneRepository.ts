@@ -1,6 +1,7 @@
 import { spawnSync } from "child_process";
 
 export function cloneRepository(sshPath: string): string {
+  console.info(`git clone ${sshPath}...`);
   const cache = `node_modules/.endpoints-tmp/${new Date().getTime()}`;
   const result = spawnSync("git", [
     "clone",
@@ -16,5 +17,6 @@ export function cloneRepository(sshPath: string): string {
     throw new Error(`Failed to clone repository: ${error}`);
   }
 
+  console.info(`git clone ${sshPath} done!`);
   return cache;
 }
