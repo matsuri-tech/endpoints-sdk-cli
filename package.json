@@ -7,6 +7,9 @@
   "bin": {
     "mes": "./dist/index.cjs"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "vitest",
     "lint": "eslint .",
