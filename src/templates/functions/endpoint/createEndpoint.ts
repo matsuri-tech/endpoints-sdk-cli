@@ -46,6 +46,7 @@ export async function createEndpoint(
           .join("\n * ")
       : "";
 
+  const hasPrameters = paramNames.length > 0;
   const parameters = paramNames.join(", ");
   const parameterTypes = params
     .map(
@@ -75,7 +76,7 @@ export async function createEndpoint(
  * ${description}
  * ${queryParamsComment}
  */
-export const ${name} = ({${parameters}}: {${parameterTypes}}) => {
+export const ${name} = (${hasPrameters ? `{${parameters}}: {${parameterTypes}}`: ``}) => {
     const __root = root();
     const __queries = Object.entries({${queryParamNamesStr}})
         .filter(([_, value]) => value !== undefined)

@@ -41,7 +41,7 @@ export const root = () => {
  * test path
  * 
  */
-export const testEndpoint = ({}: {}) => {
+export const testEndpoint = () => {
     const __root = root();
     const __queries = Object.entries({})
         .filter(([_, value]) => value !== undefined)
@@ -56,7 +56,7 @@ testEndpoint.method = "get" as const;
  * test path
  * 
  */
-export const testEndpoint2 = ({}: {}) => {
+export const testEndpoint2 = () => {
     const __root = root();
     const __queries = Object.entries({})
         .filter(([_, value]) => value !== undefined)

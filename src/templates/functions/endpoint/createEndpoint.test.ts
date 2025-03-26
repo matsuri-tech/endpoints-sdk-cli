@@ -48,3 +48,26 @@ export const health_check = ({id, date}: {id: string, date: string}) => {
 };
 health_check.method = "GET" as const;`);
 });
+
+test("パスパラメーターが存在しない場合でも正常に生成される", async () => {
+  const endpoint = {
+    method: "GET",
+    path: "/health",
+    desc: "This is health check",
+  };
+  expect(await createEndpoint("health_check", endpoint)).toEqual(`
+/**
+ * This is health check
+ * 
+ */
+export const health_check = () => {
+    const __root = root();
+    const __queries = Object.entries({})
+        .filter(([_, value]) => value !== undefined)
+        .map(([key, value]) => \`\${key}=\${value}\`)
+        .join("&");
+    const __path = \`\${__root}/health\`;
+    return __queries ? \`\${__path}?\${__queries}\` : __path;
+};
+health_check.method = "GET" as const;`);
+});
