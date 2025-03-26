@@ -1,0 +1,31 @@
+name: publish
+env:
+  CI: true
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "packages/m2m-components/package.json"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          registry-url: "https://registry.npmjs.org"
+      - uses: matsuri-tech/matsuri-workflows/.github/actions/pnpm-install@main
+      - run: pnpm run build
+      - run: |
+          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
+          npx can-npm-publish --verbose && npm publish || echo "Does not publish"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_NODE_AUTH_TOKEN }}
