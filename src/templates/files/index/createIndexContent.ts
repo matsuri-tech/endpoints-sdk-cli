@@ -17,7 +17,9 @@ export const createIndexContent = (
     [[], []] as [string[], string[]],
   );
   const importsClause = indexImports.join("\n");
-  const exportsClause = indexExportNames.join(",");
+  const exportsClause = indexExportNames.join(",\n  ");
   return `${importsClause}
-export const ${toCamelCase(repositoryAlias)} = {${exportsClause}};`;
+export const ${toCamelCase(repositoryAlias)} = {
+  ${exportsClause}
+};`;
 };
