@@ -1,0 +1,30 @@
+name: Lint and Test
+
+on: [push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    timeout-minutes: 5
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+      - uses: ./.github/actions/pnpm-install
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+        env:
+          CI: true
+      - name: Test
+        run: pnpm test
+        env:
+          CI: true
