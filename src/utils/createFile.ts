@@ -10,5 +10,5 @@ export function createFile(
     fs.mkdirSync(output, { recursive: true });
   }
   const filePath = path.join(output, filename);
-  fs.writeFileSync(filePath, contents);
+  fs.writeFileSync(filePath, contents + "\n");
 }
