@@ -9,14 +9,10 @@ export async function getRepositoryData(
   workspace?: string,
   commitHash?: string,
 ): Promise<EndpointSetting> {
-  const endpointsFile =
-    workspace !== undefined
-      ? `./${workspace}/.endpoints.json`
-      : "./.endpoints.json";
-
+  
   const checkoutResult = spawnSync(
     "git",
-    ["checkout", branchName, "--", endpointsFile],
+    ["checkout", branchName],
     { cwd: repositoryPath },
   );
 
