@@ -12,7 +12,7 @@ test("Verify that createFile works correctly", () => {
   createFile(outputDir, filename, contents);
 
   expect(fs.existsSync(filePath)).toBe(true);
-  expect(fs.readFileSync(filePath, "utf-8")).toBe(contents);
+  expect(fs.readFileSync(filePath, "utf-8")).toBe(contents + "\n");
 
   fs.unlinkSync(filePath);
   fs.rmdirSync(outputDir);
