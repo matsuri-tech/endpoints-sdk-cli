@@ -9,12 +9,9 @@ export async function getRepositoryData(
   workspace?: string,
   commitHash?: string,
 ): Promise<EndpointSetting> {
-  
-  const checkoutResult = spawnSync(
-    "git",
-    ["checkout", branchName],
-    { cwd: repositoryPath },
-  );
+  const checkoutResult = spawnSync("git", ["checkout", branchName], {
+    cwd: repositoryPath,
+  });
 
   if (checkoutResult.status !== 0) {
     console.error(checkoutResult.stderr.toString());

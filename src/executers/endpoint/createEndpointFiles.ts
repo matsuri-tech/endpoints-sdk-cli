@@ -17,7 +17,10 @@ export async function createEndpointFiles(
   environmentIdentifier: string,
   output: string,
 ): Promise<Service> {
-  const clonedRepositoryPath = cloneRepository(service.repository, service.workspaces ? service.workspaces[0] : undefined);
+  const clonedRepositoryPath = cloneRepository(
+    service.repository,
+    service.workspaces ? service.workspaces[0] : undefined,
+  );
   const commitHash = service.version ?? getHeadCommitHash(clonedRepositoryPath);
   const branchName = service.branch ?? detectMainBranch(clonedRepositoryPath);
   const workspace = service.workspaces ? service.workspaces[0] : undefined;

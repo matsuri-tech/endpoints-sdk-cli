@@ -5,7 +5,10 @@ import path from "path";
 
 describe("cloneRepository", () => {
   const createTempDir = () => {
-    const tempDir = path.join("node_modules/.endpoints-tmp", `${new Date().getTime()}`);
+    const tempDir = path.join(
+      "node_modules/.endpoints-tmp",
+      `${new Date().getTime()}`,
+    );
     fs.mkdirSync(tempDir, { recursive: true });
     return tempDir;
   };
