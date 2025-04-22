@@ -57,7 +57,7 @@ describe("getRepositoryData", () => {
     // Checking correct Git commands were called
     expect(mocks.spawnSync).toHaveBeenCalledWith(
       "git",
-      ["checkout", branchName, "--", `./${workspace}/.endpoints.json`],
+      ["checkout", branchName],
       { cwd: repositoryPath },
     );
     expect(mocks.spawnSync).toHaveBeenCalledWith(
@@ -83,7 +83,7 @@ describe("getRepositoryData", () => {
 
     expect(mocks.spawnSync).toHaveBeenCalledWith(
       "git",
-      ["checkout", branchName, "--", `./${workspace}/.endpoints.json`],
+      ["checkout", branchName],
       { cwd: repositoryPath },
     );
   });
