@@ -82,7 +82,7 @@ export const ${name} = (${hasPrameters ? `{${parameters}}: {${parameterTypes}}` 
         .filter(([_, value]) => value !== undefined)
         .map(([key, value]) => \`\${key}=\${value}\`)
         .join("&");
-    const __path = \`\${__root}${pathTemplate}\`;
+    const __path = \`\${__root}/${pathTemplate}\`;
     return __queries ? \`\${__path}?\${__queries}\` : __path;
 };`;
 

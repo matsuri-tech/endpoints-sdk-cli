@@ -9,8 +9,8 @@ test("Verify that createEndpointsContent works correctly", async () => {
       dev: "https://dev.test.com",
     },
     api: {
-      testEndpoint: { method: "get", path: "/", desc: "test path" },
-      testEndpoint2: { method: "get", path: "/", desc: "test path" },
+      testEndpoint: { method: "get", path: "", desc: "test path" },
+      testEndpoint2: { method: "get", path: "", desc: "test path" },
     },
   };
   const environmentIdentifier = "test";
