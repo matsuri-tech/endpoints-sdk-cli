@@ -4,7 +4,7 @@ import { createEndpoint } from "./createEndpoint";
 test("Verify that createEndpoint works correctly", async () => {
   const endpoint = {
     method: "GET",
-    path: "/:id/:date/?ee&hoge=22&id=hoge",
+    path: ":id/:date/?ee&hoge=22&id=hoge",
     desc: "This is health check",
   };
   expect(await createEndpoint("health_check", endpoint)).toEqual(`
@@ -29,7 +29,7 @@ health_check.method = "GET" as const;`);
 test("クエリパラメーターが存在しない場合でも正常に生成される", async () => {
   const endpoint = {
     method: "GET",
-    path: "/:id/:date/",
+    path: ":id/:date/",
     desc: "This is health check",
   };
   expect(await createEndpoint("health_check", endpoint)).toEqual(`
@@ -52,7 +52,7 @@ health_check.method = "GET" as const;`);
 test("パスパラメーターが存在しない場合でも正常に生成される", async () => {
   const endpoint = {
     method: "GET",
-    path: "/health",
+    path: "health",
     desc: "This is health check",
   };
   expect(await createEndpoint("health_check", endpoint)).toEqual(`
