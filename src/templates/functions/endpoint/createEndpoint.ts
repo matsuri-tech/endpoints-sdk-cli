@@ -8,7 +8,7 @@ export async function createEndpoint(
   endpoint: Endpoint,
 ): Promise<string> {
   const pv = endpoint.path.split("?");
-  const endpointPath = pv[0];
+  const endpointPath = pv[0].replace(/^\//, '');
   const queryParams = pv.length > 1 ? parseQueryParams(pv[1]) : [];
   const pathParams = parsePathParams(endpointPath);
 
