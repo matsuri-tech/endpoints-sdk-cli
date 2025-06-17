@@ -1,7 +1,7 @@
 {
   "name": "endpoints-sdk-cli",
   "description": "endpoints sdk cli",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "type": "module",
   "author": "hrdtbs",
   "bin": {
