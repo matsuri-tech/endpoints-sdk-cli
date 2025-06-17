@@ -74,7 +74,8 @@ export const root = () => {
 
 test("envのパスの最後にあるスラッシュは削除される", () => {
   const env = {
-    test: "http://localhost:8080/",
+    dev: "http://localhost:3000/",
+    prod: "https://api.example.com/",
   };
 
   expect(createRoot("process.env.NODE_ENV", env)).toBe(`
@@ -84,8 +85,12 @@ test("envのパスの最後にあるスラッシュは削除される", () => {
 export const root = () => {
     let __root = "";
     
-    if (process.env.NODE_ENV === "test") {       
-        __root = "http://localhost:8080";
+    if (process.env.NODE_ENV === "development") {       
+        __root = "http://localhost:3000";
+    }
+
+    if (process.env.NODE_ENV === "production") {       
+        __root = "https://api.example.com";
     }
     return __root
 }`);
