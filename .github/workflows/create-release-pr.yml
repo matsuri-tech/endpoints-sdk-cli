@@ -34,9 +34,9 @@ jobs:
             fi
           done <<< "$COMMITS"
 
-          # Check conditions: skip if commits < 10 OR only patch changes
+          # Check conditions: skip if commits < 10 AND only patch changes
           SHOULD_CREATE_PR="false"
-          if [ $COMMIT_COUNT -ge 10 ] && [ "$VERSION_BUMP" != "patch" ]; then
+          if [ $COMMIT_COUNT -ge 10 ] || [ "$VERSION_BUMP" != "patch" ]; then
             SHOULD_CREATE_PR="true"
           fi
 
