@@ -9,37 +9,22 @@ jobs:
   check-commits:
     runs-on: ubuntu-latest
     outputs:
-      has_new_commits: ${{ steps.check.outputs.has_new_commits }}
+      should_create_pr: ${{ steps.check.outputs.should_create_pr }}
+      version_bump: ${{ steps.check.outputs.version_bump }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Check for new commits
+      - name: Check for new commits and version bump type
         id: check
         run: |
           LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           COMMIT_COUNT=$(git rev-list $LAST_TAG..HEAD --count)
-          echo "has_new_commits=$([ $COMMIT_COUNT -gt 0 ] && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
-          echo "No new commits since last tag ($LAST_TAG). Skipping release PR creation."
 
-  create-release-pr:
-    needs: check-commits
-    if: needs.check-commits.outputs.has_new_commits == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Determine version bump type
-        id: version_bump
-        run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          # Determine version bump type
           COMMITS=$(git log $LAST_TAG..HEAD --pretty=format:"%s")
-
           VERSION_BUMP="patch"
-
           while IFS= read -r commit; do
             if [[ $commit =~ ^(feat!|.*BREAKING CHANGE:) ]]; then
               VERSION_BUMP="major"
@@ -49,8 +34,34 @@ jobs:
             fi
           done <<< "$COMMITS"
 
+          # Check conditions: skip if commits < 10 AND only patch changes
+          SHOULD_CREATE_PR="false"
+          if [ $COMMIT_COUNT -ge 10 ] || [ "$VERSION_BUMP" != "patch" ]; then
+            SHOULD_CREATE_PR="true"
+          fi
+
+          echo "commit_count=$COMMIT_COUNT" >> $GITHUB_OUTPUT
           echo "version_bump=$VERSION_BUMP" >> $GITHUB_OUTPUT
-          echo "Version bump type: $VERSION_BUMP"
+          echo "should_create_pr=$SHOULD_CREATE_PR" >> $GITHUB_OUTPUT
+
+          if [ "$SHOULD_CREATE_PR" = "false" ]; then
+            echo "Skipping release PR creation. Commits: $COMMIT_COUNT, Version bump: $VERSION_BUMP"
+          else
+            echo "Creating release PR. Commits: $COMMIT_COUNT, Version bump: $VERSION_BUMP"
+          fi
+
+  create-release-pr:
+    needs: check-commits
+    if: needs.check-commits.outputs.should_create_pr == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use version bump from check step
+        id: version_bump
+        run: echo "version_bump=${{ needs.check-commits.outputs.version_bump }}" >> $GITHUB_OUTPUT
 
       - name: Bump version
         id: bump_version
