@@ -38,7 +38,7 @@
               "type": "string"
             }
           },
-          "branche": {
+          "branch": {
             "type": "string"
           },
           "exclude_periods": {
