@@ -1,7 +1,7 @@
-import { describe, it, expect, vi } from "vitest";
-import { cloneRepository } from "./cloneRepository";
 import fs from "fs";
 import path from "path";
+import { describe, it, expect, vi } from "vitest";
+import { cloneRepository } from "./cloneRepository";
 
 describe("cloneRepository", () => {
   const createTempDir = () => {

@@ -1,5 +1,5 @@
-import { Config, ConfigOption } from "../model/config";
 import fs from "node:fs/promises";
+import { Config, ConfigOption } from "../model/config";
 
 const CONFIG_FILE_NAME = "endpoints.config.json";
 

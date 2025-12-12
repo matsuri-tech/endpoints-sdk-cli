@@ -6,10 +6,10 @@ import {
 } from "../repository";
 import { Service } from "../../model/config";
 import { createEndpointsContent } from "../../templates/files/endpoints/createEndpointsContent";
-import { getEndpointFilepath } from "./getEndpointFilepath";
 import { createFile } from "../../utils/createFile";
 import { createIndexContent } from "../../templates/files/index/createIndexContent";
 import { EndpointAssets } from "../../model/endpoint";
+import { getEndpointFilepath } from "./getEndpointFilepath";
 
 export async function createEndpointFiles(
   repositoryAlias: string,

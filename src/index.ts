@@ -1,6 +1,6 @@
 #! /usr/bin/env node
-import pkg from "../package.json";
 import { Command } from "commander";
+import pkg from "../package.json";
 import { init } from "./commands/init";
 import { install } from "./commands/install";
 import { update } from "./commands/update";
