@@ -73,7 +73,7 @@ jobs:
           echo "Bumped version to: $NEW_VERSION"
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.REPO_ONLY_GITHUB_TOKEN }}
           commit-message: "chore: bump version to v${{ steps.bump_version.outputs.new_version }}"
