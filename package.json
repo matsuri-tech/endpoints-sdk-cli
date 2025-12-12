@@ -33,6 +33,6 @@
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "11.7.3",
     "commander": "12.1.0",
-    "json-schema-to-typescript": "15.0.3"
+    "json-schema-to-typescript": "15.0.4"
   }
 }
