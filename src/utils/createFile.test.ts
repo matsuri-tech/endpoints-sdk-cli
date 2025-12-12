@@ -1,7 +1,7 @@
-import { expect, test } from "vitest";
-import { createFile } from "./createFile";
 import * as fs from "fs";
 import * as path from "path";
+import { expect, test } from "vitest";
+import { createFile } from "./createFile";
 
 test("Verify that createFile works correctly", () => {
   const outputDir = "./test-output/test";

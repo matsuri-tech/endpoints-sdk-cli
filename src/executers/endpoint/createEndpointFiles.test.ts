@@ -1,7 +1,7 @@
 import { expect, test, vi } from "vitest";
-import { createEndpointFiles } from "./createEndpointFiles";
 import { Service } from "../../model/config";
 import { EndpointSetting } from "../../model/endpoint";
+import { createEndpointFiles } from "./createEndpointFiles";
 
 const mocks = vi.hoisted(() => {
   return {

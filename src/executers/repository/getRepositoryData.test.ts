@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { getRepositoryData } from "./getRepositoryData";
 import { EndpointSetting } from "../../model/endpoint";
+import { getRepositoryData } from "./getRepositoryData";
 
 const mocks = vi.hoisted(() => {
   return {

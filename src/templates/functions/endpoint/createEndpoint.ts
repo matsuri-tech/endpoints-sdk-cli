@@ -1,7 +1,7 @@
+import { compile } from "json-schema-to-typescript";
 import { Endpoint } from "../../../model/endpoint";
 import { parsePathParams } from "./parsePathParams";
 import { Param, parseQueryParams } from "./parseQueryParams";
-import { compile } from "json-schema-to-typescript";
 
 export async function createEndpoint(
   name: string,
