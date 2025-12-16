@@ -1,31 +1,90 @@
 name: publish
-env:
-  CI: true
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
-    paths:
-      - "package.json"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+
+permissions:
+  contents: read
+  id-token: write
+  packages: write
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    timeout-minutes: 5
+    outputs:
+      can_publish: ${{ steps.can-publish.outputs.can_publish }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - name: Setup node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
-          node-version-file: package.json
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
       - uses: ./.github/actions/pnpm-install
       - run: pnpm run build
-      - run: |
-          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
-          npx can-npm-publish --verbose && npm publish || echo "Does not publish"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_NODE_AUTH_TOKEN }}
+      - name: Check if can publish
+        id: can-publish
+        run: |
+          npx can-npm-publish --verbose && echo "can_publish=true" >> $GITHUB_OUTPUT || echo "can_publish=false" >> $GITHUB_OUTPUT
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  publish-release:
+    needs: check
+    if: needs.check.outputs.can_publish == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Publish
+        run: |
+          npm publish
+
+  publish-alpha:
+    needs: check
+    if: needs.check.outputs.can_publish != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Update version
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          npm version prepatch --preid alpha-$(($(date +%s%N)/1000000))-$(git rev-parse --short HEAD)
+      - name: Publish
+        run: |
+          npm publish --tag alpha
