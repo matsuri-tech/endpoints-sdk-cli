@@ -1,6 +1,14 @@
 name: Lint and Test
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,7 +32,51 @@ jobs:
         run: pnpm typecheck
         env:
           CI: true
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: package.json
+      - uses: ./.github/actions/pnpm-install
       - name: Test
-        run: pnpm test
+        run: pnpm coverage
         env:
           CI: true
+
+      - name: Upload coverage to artifacts
+        # デフォルトブランチでのみpushトリガーを実行している前提
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-main
+          path: coverage/
+          retention-days: 7
+
+      - name: Download coverage from main
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RUN_ID=$(gh run list --workflow "${{ github.workflow }}" --branch ${{ github.event.repository.default_branch}} --status success --limit 1 --json databaseId --jq '.[0].databaseId')
+          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Download artifact
+        if: github.event_name == 'pull_request' && env.RUN_ID != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-main
+          run-id: ${{ env.RUN_ID }}
+          github-token: ${{ github.token }}
+          path: coverage-main
+        continue-on-error: true
+
+      - name: Report Coverage
+        if: github.event_name == 'pull_request'
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-compare-path: coverage-main/coverage-summary.json
