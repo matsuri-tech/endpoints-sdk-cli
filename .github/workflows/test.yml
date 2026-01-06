@@ -75,6 +75,15 @@ jobs:
           path: coverage-main
         continue-on-error: true
 
+      - name: Ensure coverage files exist
+        if: github.event_name == 'pull_request'
+        run: |
+          if [ ! -f coverage-main/coverage-summary.json ]; then
+            echo "Main branch coverage not found, using current coverage for comparison."
+            mkdir -p coverage-main
+            cp coverage/coverage-summary.json coverage-main/coverage-summary.json
+          fi
+
       - name: Report Coverage
         if: github.event_name == 'pull_request'
         uses: davelosert/vitest-coverage-report-action@v2
