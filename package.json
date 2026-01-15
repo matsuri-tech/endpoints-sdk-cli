@@ -2,7 +2,7 @@
   "name": "endpoints-sdk-cli",
   "description": "endpoints sdk cli",
   "repository": "https://github.com/matsuri-tech/endpoints-sdk-cli.git",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "type": "module",
   "author": "hrdtbs",
   "bin": {
