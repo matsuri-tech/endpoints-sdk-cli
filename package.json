@@ -25,7 +25,7 @@
     "@types/node": "24.10.8",
     "@vitest/coverage-v8": "4.0.17",
     "eslint": "9.39.2",
-    "eslint-config-matsuri": "5.6.5",
+    "eslint-config-matsuri": "5.6.6",
     "prettier": "3.8.0",
     "tsup": "8.5.1",
     "typescript": "^5.6.3",
