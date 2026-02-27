@@ -51,7 +51,7 @@ jobs:
       - name: Upload coverage to artifacts
         # Assumes the push trigger only runs on the default branch
         if: github.event_name == 'push'
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-main
           path: coverage/
@@ -68,7 +68,7 @@ jobs:
 
       - name: Download artifact
         if: github.event_name == 'pull_request' && env.RUN_ID != ''
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: coverage-main
           run-id: ${{ env.RUN_ID }}
