@@ -58,7 +58,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@2e223e0f0d2b8fd9872cbadb8b7428e5f8b5556d # v6
+      - uses: pnpm/action-setup@08c4be7e2e672a47d11bd04269e27e5f3e8529cb # v6
         with:
           version: 10
 
