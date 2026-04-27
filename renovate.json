@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":configMigration"],
+  "extends": ["config:recommended", ":configMigration", "helpers:pinGitHubActionDigestsToSemver"],
   "reviewers": ["hrdtbs"],
   "packageRules": [
     {
