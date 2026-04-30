@@ -12,7 +12,7 @@ jobs:
       should_create_pr: ${{ steps.check.outputs.should_create_pr }}
       version_bump: ${{ steps.check.outputs.version_bump }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
 
@@ -55,7 +55,7 @@ jobs:
     if: needs.check-commits.outputs.should_create_pr == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@08c4be7e2e672a47d11bd04269e27e5f3e8529cb # v6
