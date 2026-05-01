@@ -60,7 +60,7 @@ jobs:
           fetch-depth: 0
       - uses: pnpm/action-setup@26f6d4f2c533a43e6b5da0b4a5dd983f98f7b49a # v6.0.4
         with:
-          version: 10
+          version: 11
 
       - name: Use version bump from check step
         id: version_bump
