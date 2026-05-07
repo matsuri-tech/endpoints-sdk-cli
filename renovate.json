@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     ":configMigration",
+    ":automergeMinor",
     "helpers:pinGitHubActionDigestsToSemver"
   ],
   "reviewers": ["hrdtbs"],
