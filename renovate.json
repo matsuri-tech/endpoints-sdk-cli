@@ -9,8 +9,8 @@
   "packageRules": [
     {
       "matchDepTypes": ["action"],
-      "pinDigests": true,
-      "matchPackageNames": ["!actions/{/,}**", "!matsuri-tech/{/,}**"]
+      "matchPackageNames": ["actions/{/,}**", "matsuri-tech/{/,}**"],
+      "pinDigests": false
     }
   ]
 }
