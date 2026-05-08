@@ -5,18 +5,11 @@
     ":configMigration",
     "helpers:pinGitHubActionDigestsToSemver"
   ],
-  "reviewers": [
-    "hrdtbs"
-  ],
+  "reviewers": ["hrdtbs"],
   "packageRules": [
     {
-      "matchDepTypes": [
-        "action"
-      ],
-      "matchPackageNames": [
-        "actions/{/,}**",
-        "matsuri-tech/{/,}**"
-      ],
+      "matchDepTypes": ["action"],
+      "matchPackageNames": ["actions/{/,}**", "matsuri-tech/{/,}**"],
       "pinDigests": false
     }
   ]
