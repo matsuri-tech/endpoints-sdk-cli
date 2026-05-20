@@ -95,6 +95,32 @@ export const health_check = () => {
 health_check.method = "GET" as const;`);
 });
 
+test("request/responseスキーマが指定されてもjson-schema-to-typescriptのバナーコメントは出力されない", async () => {
+  const endpoint = {
+    method: "POST",
+    path: "users",
+    desc: "Create user",
+    request: {
+      type: "object",
+      properties: {
+        name: { type: "string" },
+      },
+      required: ["name"],
+    },
+    response: {
+      type: "object",
+      properties: {
+        id: { type: "string" },
+      },
+      required: ["id"],
+    },
+  };
+  const result = await createEndpoint("create_user", endpoint);
+  expect(result).not.toContain("json-schema-to-typescript");
+  expect(result).not.toContain("DO NOT MODIFY");
+  expect(result).not.toContain("eslint-disable");
+});
+
 test("パスが空文字の場合はルートパスが生成される", async () => {
   const endpoint = {
     method: "GET",
