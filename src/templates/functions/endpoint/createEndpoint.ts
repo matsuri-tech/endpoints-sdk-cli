@@ -65,10 +65,10 @@ export async function createEndpoint(
   );
 
   const request = endpoint.request
-    ? await compile(endpoint.request, `${name}Request`)
+    ? await compile(endpoint.request, `${name}Request`, { bannerComment: "" })
     : undefined;
   const response = endpoint.response
-    ? await compile(endpoint.response, `${name}Response`)
+    ? await compile(endpoint.response, `${name}Response`, { bannerComment: "" })
     : undefined;
 
   const func = `
