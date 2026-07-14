@@ -3,7 +3,7 @@ description: Install dependencies with pnpm.
 inputs:
   version:
     description: "The version of pnpm to use."
-    default: "11"
+    default: "11.7.0"
     required: false
 
 runs:
