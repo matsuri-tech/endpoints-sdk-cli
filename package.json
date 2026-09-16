@@ -23,13 +23,13 @@
   },
   "devDependencies": {
     "@types/node": "24.13.4",
-    "@vitest/coverage-v8": "5.0.0",
+    "@vitest/coverage-v8": "5.0.1",
     "eslint": "10.10.0",
     "eslint-config-matsuri": "6.0.14",
     "prettier": "3.9.6",
     "tsup": "8.5.1",
     "typescript": "^6.0.0",
-    "vitest": "5.0.0"
+    "vitest": "5.0.1"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "16.0.2",
