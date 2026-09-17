@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "@types/node": "24.13.4",
+    "@types/node": "24.13.5",
     "@vitest/coverage-v8": "5.0.1",
     "eslint": "10.10.0",
     "eslint-config-matsuri": "6.0.14",
