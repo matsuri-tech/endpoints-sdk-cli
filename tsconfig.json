@@ -9,6 +9,9 @@
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,
     "moduleResolution": "node" /* Specify module resolution strategy. */,
+    "types": [
+      "node"
+    ] /* Explicitly include @types/node so type resolution does not depend on automatic @types discovery, which pnpm's hoisting can break. */,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   }
 }
