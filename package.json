@@ -32,7 +32,7 @@
     "vitest": "5.1.1"
   },
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "16.0.8",
+    "@apidevtools/json-schema-ref-parser": "16.1.1",
     "commander": "15.1.0",
     "json-schema-to-typescript": "16.0.0"
   }
